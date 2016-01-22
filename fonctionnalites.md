@@ -9,7 +9,8 @@
 - affichage de l'ensemble des clés de hachage
 
 - navigation entre les fichiers et affichage du contenu
- ( [git cat-file](https://git-scm.com/docs/git-cat-file) )
+( voir [git cat-file](https://git-scm.com/docs/git-cat-file) )
+
 - pas un outil d'historique ou de diff
 
 
