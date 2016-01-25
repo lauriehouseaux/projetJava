@@ -47,6 +47,8 @@
   - commandes pour test :
     - echo 'test content' | git [hash-object](https://git-scm.com/docs/git-hash-object) -w --stdin
       - (stocke un fichier contenant le texte 'test content' et renvoie la clé de hachege)
+    - git [hash-object](https://git-scm.com/docs/git-hash-object) -w file.txt
+      - (stocke le fichier file.txt et renvoie la clé de hachege)
   - dossier info :
     -
   - dossier pack :
