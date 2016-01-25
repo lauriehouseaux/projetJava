@@ -43,6 +43,7 @@
 
 7. ) dossier objects :
   - Tout le contenu des données est présent ici
+  - (**Notre dossier principal**)
 
 8. ) dossier refs :
   - pointeurs vers des objets commit
