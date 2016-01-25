@@ -49,10 +49,20 @@
       - (stocke un fichier contenant le texte 'test content' et renvoie la clé de hachege)
     - git [hash-object](https://git-scm.com/docs/git-hash-object) -w file.txt
       - (stocke le fichier file.txt et renvoie la clé de hachege)
+    - git [cat-file](https://git-scm.com/docs/git-cat-file) -t <clé de hachage>
+      - renvoies le type de l'objet correspondant à la clé donnée
+      - exemple : git git [cat-file](https://git-scm.com/docs/git-cat-file) -t d670460b4b4aece5915caf5c68d12f560a9fe3e4 => blob
+    - git [cat-file](https://git-scm.com/docs/git-cat-file) <type> <clé de hachage>
+      - affiche le contenu de l'objet correspondant à la clé de hachage ayant le type donné
+      - exemple : git [cat-file](https://git-scm.com/docs/git-cat-file) blob d670460b4b4aece5915caf5c68d12f560a9fe3e4 => test content
   - dossier info :
     -
   - dossier pack :
     -
+  - **plusieurs dossiers avec 2 caractères :**
+    - ce sont les 2 premiers caractères des clés de hachage à l'intérieur
+    - (ex : d6/70460b4b4aece5915caf5c68d12f560a9fe3e4 => d670460b4b4aece5915caf5c68d12f560a9fe3e4)
+    - ce dossier et fichier résultent de la commande echo 'test content' | git [hash-object](https://git-scm.com/docs/git-hash-object) -w --stdin
 
 
 
