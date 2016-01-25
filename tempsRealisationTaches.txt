@@ -1,0 +1,10 @@
+Temps de realisation des differentes taches (en jours) groupe de projet #01
+
+tache,estimation,consomme,restant
+
+maquettes de l'interface,1,0,1
+conception/fonctionnalités/diagrammes,2,1,2
+recherches techniques/documentations,2,0,2
+codage interface utilisateur,5,0,5
+codage recuperation et lecture fichiers git,3,0,3
+gestion evenements utilisateur,3,0,3
