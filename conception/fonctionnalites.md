@@ -68,3 +68,10 @@
 
 9. ) fichier index :
   - informations de staging (git add …. )
+
+
+
+
+## Maquettes :
+
+
