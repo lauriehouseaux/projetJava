@@ -74,4 +74,5 @@
 
 ## Maquettes :
 
-
+![maquette1](Maquette.PNG "maquette 1")
+![maquette2](Maquette2.PNG "maquette 2")
