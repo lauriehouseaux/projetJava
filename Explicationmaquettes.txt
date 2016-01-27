@@ -2,11 +2,11 @@
 
 - Un bouton aide qui ouvre un fichier texte pour expliquer le fonctionnement (Guide)
 
-- Grande fenetre qui affiche tout l'arbre, réagie au clic pour sélectionner le fichier que l'on veut, réagie au résultat de la recherche et aux déplacement par les 4 boutons.
+- Grande fenêtre qui affiche tout l'arbre, réagis au clic pour sélectionner le fichier que l'on veut, réagis au résultat de la recherche et aux déplacement par les 4 boutons.
 
-- Fenetre zoom pour voir de manière plus précice quel est le fichier sélectionné
+- Fenêtre zoom pour voir de manière plus précise quel est le fichier sélectionné
 
-- Fenetre détails (facultative): Une fenetre qui affiche les détails du fichier
+- Fenêtre détails (facultative): Une fenêtre qui affiche les détails du fichier
 
 - Le bouton ok/open Pour accéder au contenu du fichier.
 
