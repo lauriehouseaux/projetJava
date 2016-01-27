@@ -2,7 +2,7 @@
 
 - Un bouton aide qui ouvre un fichier texte pour expliquer le fonctionnement (Guide)
 
-- Grande fenêtre qui affiche tout l'arbre, réagis au clic pour sélectionner le fichier que l'on veut, réagis au résultat de la recherche et aux déplacement par les 4 boutons.
+- Grande fenêtre qui affiche tout l'arbre, réagit au clic pour sélectionner le fichier que l'on veut, réagit au résultat de la recherche et aux déplacement par les 4 boutons.
 
 - Fenêtre zoom pour voir de manière plus précise quel est le fichier sélectionné
 
