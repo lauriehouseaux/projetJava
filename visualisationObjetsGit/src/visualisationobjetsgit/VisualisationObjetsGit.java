@@ -9,10 +9,9 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -23,17 +22,13 @@ public class VisualisationObjetsGit extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-
-//        StackPane root = new StackPane();
-        BorderPane root = new BorderPane();
-        
-        Scene scene = new Scene(root, 1280, 720);
-        
         primaryStage.setTitle("Visualisation objets git");
-        primaryStage.setScene(scene);
+        VBox root = new VBox();
+        Scene scene = new Scene(root, 1280, 720);
+
+//        MenuBar menuBar = new MenuBar();
         
-        MenuBar menuBar = new MenuBar();
-        
+
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(30, 30, 30, 30));
         grid.setVgap(5);
@@ -50,6 +45,7 @@ public class VisualisationObjetsGit extends Application {
         
         root.getChildren().add(grid);
         
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
