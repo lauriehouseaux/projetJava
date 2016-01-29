@@ -9,6 +9,9 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -26,7 +29,16 @@ public class VisualisationObjetsGit extends Application {
         VBox root = new VBox();
         Scene scene = new Scene(root, 1280, 720);
 
-//        MenuBar menuBar = new MenuBar();
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        menuBar.getMenus().add(menuFile);
+
+        MenuItem menuFileOpen = new MenuItem("open");
+
+
+
+
+        root.getChildren().add(menuBar);
         
 
         GridPane grid = new GridPane();
