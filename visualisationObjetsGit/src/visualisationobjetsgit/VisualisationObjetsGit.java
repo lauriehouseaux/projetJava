@@ -33,10 +33,13 @@ public class VisualisationObjetsGit extends Application {
         dc.setInitialDirectory(new File("D:\\Programmation\\Java"));
         
         File gitRepository = dc.showDialog(stage);
-        
         System.out.println(gitRepository.getAbsolutePath());
-        File[] gitObjects = gitRepository.listFiles();
-        
+
+
+        File gitObjectsDirectory = new File(new File(gitRepository, ".git"), "objects");
+        File[] gitObjects = gitObjectsDirectory.listFiles();
+
+        System.out.println(".git/objects : ");
         for (File gitObject : gitObjects) {
             System.out.println("\t" + gitObject.getName());
         }
