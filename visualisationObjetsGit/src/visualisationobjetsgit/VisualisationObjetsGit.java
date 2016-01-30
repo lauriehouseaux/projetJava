@@ -6,6 +6,7 @@
 package visualisationobjetsgit;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +23,12 @@ import javafx.stage.Stage;
  * @author freeze
  */
 public class VisualisationObjetsGit extends Application {
+   
+    public void open() {
+        
+        System.out.println("ouverture");
+        
+    }
     
     @Override
     public void start(Stage primaryStage) {
@@ -35,7 +42,13 @@ public class VisualisationObjetsGit extends Application {
 
         MenuItem menuFileOpen = new MenuItem("open");
 
-
+        menuFileOpen.setOnAction( (ActionEvent t) -> {
+            open();
+        } );
+        
+        
+        
+        menuFile.getItems().add(menuFileOpen);
 
 
         root.getChildren().add(menuBar);
