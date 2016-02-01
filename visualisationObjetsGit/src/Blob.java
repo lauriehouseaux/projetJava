@@ -8,6 +8,6 @@
  *
  * @author COT
  */
-public class Blob {
+public class Blob extends GitObject{
     
 }

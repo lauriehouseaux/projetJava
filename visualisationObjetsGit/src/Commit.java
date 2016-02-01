@@ -8,6 +8,6 @@
  *
  * @author COT
  */
-public class Commit {
+public class Commit extends GitObject{
     
 }

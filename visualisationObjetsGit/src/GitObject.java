@@ -9,5 +9,13 @@
  * @author COT
  */
 class GitObject {
+    private String contenu;
+    private String adresseRelative;
     
+    public String getContenu(){
+        return contenu;
+    }
+    public String getAdresse(){
+        return adresseRelative;
+    }
 }

@@ -8,6 +8,6 @@
  *
  * @author COT
  */
-public class Tag {
+public class Tag extends GitObject{
     
 }
