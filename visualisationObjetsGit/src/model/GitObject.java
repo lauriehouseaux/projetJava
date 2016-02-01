@@ -12,12 +12,15 @@ package model;
  */
 class GitObject {
     private String contenu;
-    private String adresseRelative;
+    private String adresseAbsolue;
     
     public String getContenu(){
         return contenu;
     }
     public String getAdresse(){
-        return adresseRelative;
+        return adresseAbsolue;
+    }
+    public GitObject(String adresseAbsolue){
+        
     }
 }
