@@ -26,23 +26,25 @@ import javafx.stage.Stage;
  */
 public class VisualisationObjetsGit extends Application {
    
-    public void open(Stage stage) {
+    public String open(Stage stage) {
         
         DirectoryChooser dc = new DirectoryChooser();
         
-        dc.setInitialDirectory(new File("D:\\Programmation\\Java"));
+//        dc.setInitialDirectory(new File("D:\\Programmation\\Java"));
         
         File gitRepository = dc.showDialog(stage);
-        System.out.println(gitRepository.getAbsolutePath());
+        File gitDirectory = new File(gitRepository, ".git");
+        
+        return gitDirectory.getAbsolutePath();
 
 
-        File gitObjectsDirectory = new File(new File(gitRepository, ".git"), "objects");
-        File[] gitObjects = gitObjectsDirectory.listFiles();
+//        File gitObjectsDirectory = new File(new File(gitRepository, ".git"), "objects");
+//        File[] gitObjects = gitObjectsDirectory.listFiles();
 
-        System.out.println(".git/objects : ");
-        for (File gitObject : gitObjects) {
-            System.out.println("\t" + gitObject.getName());
-        }
+//        System.out.println(".git/objects : ");
+//        for (File gitObject : gitObjects) {
+//            System.out.println("\t" + gitObject.getName());
+//        }
         
     }
     
@@ -59,7 +61,7 @@ public class VisualisationObjetsGit extends Application {
         MenuItem menuFileOpen = new MenuItem("open");
 
         menuFileOpen.setOnAction( (ActionEvent t) -> {
-            open(primaryStage);
+            System.out.println(open(primaryStage));
         } );
         
         
