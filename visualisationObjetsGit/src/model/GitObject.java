@@ -10,7 +10,7 @@ package model;
  *
  * @author COT
  */
-class GitObject {
+abstract class GitObject {
     private String contenu;
     private String adresseAbsolue;
     
