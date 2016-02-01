@@ -20,7 +20,9 @@ abstract class GitObject {
     public String getAdresse(){
         return adresseAbsolue;
     }
-    public GitObject(String adresseAbsolue){
+    public GitObject(String _adresseAbsolue){
+        
+        adresseAbsolue = _adresseAbsolue;
         
     }
 }

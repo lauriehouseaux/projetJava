@@ -12,4 +12,10 @@ package model;
  */
 public class Blob extends GitObject{
     
+    public Blob(String _adresseAbsolue) {
+        
+        super(_adresseAbsolue);
+        
+    }
+    
 }

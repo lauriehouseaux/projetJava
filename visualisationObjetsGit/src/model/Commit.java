@@ -12,4 +12,10 @@ package model;
  */
 public class Commit extends GitObject{
     
+    public Commit(String _adresseAbsolue) {
+        
+        super(_adresseAbsolue);
+        
+    }
+    
 }

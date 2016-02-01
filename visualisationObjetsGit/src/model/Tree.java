@@ -14,6 +14,13 @@ import java.util.ArrayList;
  * @author COT
  */
 public class Tree extends GitObject{
+    
     private ArrayList<String> Childs=new ArrayList();
+    
+    public Tree(String _adresseAbsolue) {
+        
+        super(_adresseAbsolue);
+        
+    }
     
 }

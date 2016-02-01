@@ -12,4 +12,10 @@ package model;
  */
 public class Tag extends GitObject{
     
+    public Tag(String _adresseAbsolue) {
+        
+        super(_adresseAbsolue);
+        
+    }
+    
 }
