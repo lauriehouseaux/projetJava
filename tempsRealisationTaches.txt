@@ -19,6 +19,6 @@ gestion evenements utilisateur,3,0,3
 
 
 
-conception/fonctionnalités/diagrammes : 1/2 j
-recherches techniques/documentations : 1/2 j
-codage recuperation et lecture fichiers git : 1/2 j
+conception/fonctionnalités/diagrammes : 0.5 j
+recherches techniques/documentations : 0.5 j
+codage recuperation et lecture fichiers git : 0.5 j
