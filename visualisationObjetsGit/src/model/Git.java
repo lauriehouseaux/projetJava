@@ -1,5 +1,6 @@
+package model;
 
-import java.util.ArrayList;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author COT
  */
-public class Tree extends GitObject{
-    private ArrayList<String> Childs=new ArrayList();
+public class Git {
     
+  
 }
