@@ -16,3 +16,9 @@ recherches techniques/documentations,2,1,2
 codage interface utilisateur,5,0,5
 codage recuperation et lecture fichiers git,3,0,3
 gestion evenements utilisateur,3,0,3
+
+
+
+conception/fonctionnalités/diagrammes : 3/3 h
+recherches techniques/documentations : 3/3 h
+codage recuperation et lecture fichiers git : 3/3 h
