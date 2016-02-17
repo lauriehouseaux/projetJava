@@ -5,6 +5,7 @@
  */
 package visualisationobjetsgit;
 
+import exceptions.NotGitRepositoryException;
 import java.io.File;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -18,11 +19,21 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Jarretier Adrien <jarretier.adrien@gmail.com>
+ * @author Jarretier Adrien "jarretier.adrien@gmail.com"
  */
 public class VisualisationObjetsGit extends Application {
    
-    public String open(Stage stage) {
+    /**
+     * ouvre une fenetre de selection de dossier,
+     * le dossier doit etre un depot git valide
+     * 
+     * @param stage conteneur parent a cette fenetre de selection de dossier
+     * 
+     * @return chemin absolu du dossier ".git"
+     * 
+     * @throws exceptions.NotGitRepositoryException 
+     */
+    public String openGitRepository(Stage stage) throws NotGitRepositoryException {
         
         DirectoryChooser dc = new DirectoryChooser();
         
@@ -30,6 +41,14 @@ public class VisualisationObjetsGit extends Application {
         
         File gitRepository = dc.showDialog(stage);
         File gitDirectory = new File(gitRepository, ".git");
+        
+        // leve une exception si le dossier ".git" n'existe pas
+        // autrement dit : si le dossier selectionne n'est pas un depot git
+        if(!gitDirectory.exists()) {
+            
+            throw new NotGitRepositoryException("Ce n'est pas un depot git valide !");
+            
+        }
         
         return gitDirectory.getAbsolutePath();
 
@@ -67,7 +86,15 @@ public class VisualisationObjetsGit extends Application {
             MenuItem menuFileOpen = new MenuItem("ouvrir");
 
             menuFileOpen.setOnAction( (ActionEvent t) -> {
-                System.out.println(open(primaryStage));
+                
+                try {
+                    String gitDirAbsolutePath = openGitRepository(primaryStage);
+                    System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
+                }
+                catch(NotGitRepositoryException e) {
+                    System.err.println(e.getMessage());
+                }
+                
             } );
 
             menuFile.getItems().add(menuFileOpen);
