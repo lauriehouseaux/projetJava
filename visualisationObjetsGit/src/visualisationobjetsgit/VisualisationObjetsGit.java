@@ -15,8 +15,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -51,25 +51,36 @@ public class VisualisationObjetsGit extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Visualisation objets git");
-        VBox root = new VBox();
+        
+        // Les elements de la fenetre principale seront disposes
+        // en haut, gauche, droite, bas et centre
+        BorderPane root = new BorderPane();
+        
+        // fenetre principale de taille fixe 1280 x 720p
         Scene scene = new Scene(root, 1280, 720);
 
+        // barre de menu
         MenuBar menuBar = new MenuBar();
-        Menu menuFile = new Menu("File");
-        menuBar.getMenus().add(menuFile);
-
-        MenuItem menuFileOpen = new MenuItem("open");
-
-        menuFileOpen.setOnAction( (ActionEvent t) -> {
-            System.out.println(open(primaryStage));
-        } );
         
-        
-        
-        menuFile.getItems().add(menuFileOpen);
+        // ------------------------------------------------------------
+        // ---------------------- menu "fichier" ----------------------
+            Menu menuFile = new Menu("Fichier");
+            menuBar.getMenus().add(menuFile);
 
+            // element "ouvrir" dans le menu "fichier"
+            MenuItem menuFileOpen = new MenuItem("ouvrir");
 
-        root.getChildren().add(menuBar);
+            menuFileOpen.setOnAction( (ActionEvent t) -> {
+                System.out.println(open(primaryStage));
+            } );
+
+            menuFile.getItems().add(menuFileOpen);
+        // ---------------------- menu "fichier" ----------------------
+        // ------------------------------------------------------------
+
+            
+        // ajout de la barre de menu dans la fenetre principale
+        root.setTop(menuBar);
         
 
         GridPane grid = new GridPane();
@@ -78,15 +89,15 @@ public class VisualisationObjetsGit extends Application {
         grid.setHgap(5);
 
         TextField searchField = new TextField();
-        searchField.setPromptText("Search");
+        searchField.setPromptText("Recherche");
         GridPane.setConstraints(searchField, 0, 0);
         grid.getChildren().add(searchField);
         
-        Button searchButton = new Button("Search");
+        Button searchButton = new Button("Recherche");
         GridPane.setConstraints(searchButton, 1, 0);
         grid.getChildren().add(searchButton);
         
-        root.getChildren().add(grid);
+        root.setCenter(grid);
         
         primaryStage.setScene(scene);
         primaryStage.show();
