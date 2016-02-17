@@ -8,21 +8,17 @@ package visualisationobjetsgit;
 import java.io.File;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 /**
  *
- * @author freeze
+ * @author Jarretier Adrien <jarretier.adrien@gmail.com>
  */
 public class VisualisationObjetsGit extends Application {
    
@@ -30,7 +26,7 @@ public class VisualisationObjetsGit extends Application {
         
         DirectoryChooser dc = new DirectoryChooser();
         
-//        dc.setInitialDirectory(new File("D:\\Programmation\\Java"));
+        dc.setInitialDirectory(new File(System.getProperty("user.dir")));
         
         File gitRepository = dc.showDialog(stage);
         File gitDirectory = new File(gitRepository, ".git");
@@ -101,6 +97,7 @@ public class VisualisationObjetsGit extends Application {
         
         primaryStage.setScene(scene);
         primaryStage.show();
+//                System.out.println(open(primaryStage));
     }
 
     /**
