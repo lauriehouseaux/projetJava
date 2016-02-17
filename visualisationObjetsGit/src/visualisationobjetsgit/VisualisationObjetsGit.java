@@ -83,21 +83,21 @@ public class VisualisationObjetsGit extends Application {
         root.setTop(menuBar);
         
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(30, 30, 30, 30));
-        grid.setVgap(5);
-        grid.setHgap(5);
-
-        TextField searchField = new TextField();
-        searchField.setPromptText("Recherche");
-        GridPane.setConstraints(searchField, 0, 0);
-        grid.getChildren().add(searchField);
-        
-        Button searchButton = new Button("Recherche");
-        GridPane.setConstraints(searchButton, 1, 0);
-        grid.getChildren().add(searchButton);
-        
-        root.setCenter(grid);
+//        GridPane grid = new GridPane();
+//        grid.setPadding(new Insets(30, 30, 30, 30));
+//        grid.setVgap(5);
+//        grid.setHgap(5);
+//
+//        TextField searchField = new TextField();
+//        searchField.setPromptText("Recherche");
+//        GridPane.setConstraints(searchField, 0, 0);
+//        grid.getChildren().add(searchField);
+//        
+//        Button searchButton = new Button("Recherche");
+//        GridPane.setConstraints(searchButton, 1, 0);
+//        grid.getChildren().add(searchButton);
+//        
+//        root.setCenter(grid);
         
         primaryStage.setScene(scene);
         primaryStage.show();
