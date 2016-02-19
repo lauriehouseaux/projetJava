@@ -22,3 +22,15 @@ gestion evenements utilisateur,3,0,3
 conception/fonctionnalités/diagrammes : 0.5 j
 recherches techniques/documentations : 0.5 j
 codage recuperation et lecture fichiers git : 0.5 j
+
+
+semaine 8/02 14/02
+
+recherches techniques/documentations : 1/2
+codage recuperation et lecture fichiers git : 1/2
+
+
+semaine 15/02 21/02
+
+codage interface utilisateur : 1/2
+

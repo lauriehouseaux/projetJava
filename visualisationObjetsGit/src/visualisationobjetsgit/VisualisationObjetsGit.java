@@ -53,6 +53,7 @@ public class VisualisationObjetsGit extends Application {
         return gitDirectory.getAbsolutePath();
 
 
+// code pour recuperer la liste des dossiers dans ".git/objects"
 //        File gitObjectsDirectory = new File(new File(gitRepository, ".git"), "objects");
 //        File[] gitObjects = gitObjectsDirectory.listFiles();
 
@@ -106,6 +107,7 @@ public class VisualisationObjetsGit extends Application {
         root.setTop(menuBar);
         
 
+// code de la barre de recherche * sera réutilisé plus tard *     
 //        GridPane grid = new GridPane();
 //        grid.setPadding(new Insets(30, 30, 30, 30));
 //        grid.setVgap(5);
@@ -124,7 +126,6 @@ public class VisualisationObjetsGit extends Application {
         
         primaryStage.setScene(scene);
         primaryStage.show();
-//                System.out.println(open(primaryStage));
     }
 
     /**
