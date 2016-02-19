@@ -31,7 +31,8 @@ public class VisualisationObjetsGit extends Application {
      * 
      * @param stage conteneur parent a cette fenetre de selection de dossier
      * 
-     * @return objet "File" representant le dossier ".git"
+     * @return - objet "File" representant le dossier ".git" <br>
+     *         - ou null si la selection a ete annulee
      * 
      * @throws exceptions.NotGitRepositoryException 
      */
@@ -102,6 +103,8 @@ public class VisualisationObjetsGit extends Application {
                 try {
                     File gitDir = openGitRepository(primaryStage);
                     
+                    // si openGitRepository renvoie null on ne fait aucun traitement
+                    // ( la selection de dossier a ete annulee )
                     if( gitDir != null ) {
                         
                         String gitDirAbsolutePath = gitDir.getAbsolutePath();
