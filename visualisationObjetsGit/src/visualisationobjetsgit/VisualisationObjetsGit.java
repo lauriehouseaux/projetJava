@@ -27,7 +27,6 @@ import javafx.stage.Stage;
  */
 public class VisualisationObjetsGit extends Application {
     
-    private String gitDirAbsolutePath;
     private TreeItem<String> rootTreeListeFichiers;
     private TreeView<String> treeListeFichiers;
    
@@ -67,16 +66,38 @@ public class VisualisationObjetsGit extends Application {
 
             return gitDirectory;
         }
+    }
+    
+    /**
+     * remplit la TreeView sur le cote gauche
+     * avec la liste des fichiers de ".git/objects"
+     * 
+     * @param gitDirectory dossier ".git"
+     * 
+     */
+    public void addListObjectsInTreeView( File gitDirectory ) {
+    
+        File gitObjectsDirectory = new File(gitDirectory, "objects");
+        
+        rootTreeListeFichiers.setValue(gitObjectsDirectory.getAbsolutePath());
 
-
-// code pour recuperer la liste des dossiers dans ".git/objects"
-//        File gitObjectsDirectory = new File(new File(gitRepository, ".git"), "objects");
-//        File[] gitObjects = gitObjectsDirectory.listFiles();
-
-//        System.out.println(".git/objects : ");
-//        for (File gitObject : gitObjects) {
-//            System.out.println("\t" + gitObject.getName());
-//        }
+        rootTreeListeFichiers.setExpanded(true);
+        
+        File[] gitObjectsSubDirectories = gitObjectsDirectory.listFiles();
+        
+        for (File gitObjectsSubDirectory : gitObjectsSubDirectories) {
+            
+            TreeItem<String> subDirectoryItem = new TreeItem<>(gitObjectsSubDirectory.getName());
+            
+            File[] gitObjects = gitObjectsSubDirectory.listFiles();
+            
+            for (File gitObject : gitObjects) {
+                TreeItem<String> objectItem = new TreeItem<>(gitObject.getName());
+                subDirectoryItem.getChildren().add(objectItem);
+            }
+            
+            rootTreeListeFichiers.getChildren().add(subDirectoryItem);
+        }
         
     }
     
@@ -112,20 +133,13 @@ public class VisualisationObjetsGit extends Application {
                         // si openGitRepository renvoie null on ne fait aucun traitement
                         // ( la selection de dossier a ete annulee )
                         if( gitDir != null ) {
-
-                            gitDirAbsolutePath = gitDir.getAbsolutePath();
-                            System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
-                            rootTreeListeFichiers.setValue(gitDirAbsolutePath);
-                            
-                            rootTreeListeFichiers.setExpanded(true);
-
+                            addListObjectsInTreeView( gitDir );
                         }
 
                         validGitRepo = true;
                     }
                     catch(NotGitRepositoryException e) {
 
-    //                    System.err.println(e.getMessage());
                         Alert alert = new Alert(AlertType.ERROR, e.getMessage());
                         alert.showAndWait();
                         validGitRepo = false;
@@ -146,8 +160,10 @@ public class VisualisationObjetsGit extends Application {
         // ------------------------------------------------------------
         // ----------------- tree View Liste fichiers -----------------
             
-            rootTreeListeFichiers = new TreeItem("git directory");
+            rootTreeListeFichiers = new TreeItem("git objects directory");
         
+            // nouvelle TreeView avec l'element racine "rootTreeListeFichiers"
+            // le dossier => ".git/objects"
             treeListeFichiers = new TreeView<>(rootTreeListeFichiers);
             
             root.setLeft(treeListeFichiers);
