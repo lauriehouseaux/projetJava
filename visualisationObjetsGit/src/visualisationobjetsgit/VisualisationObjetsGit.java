@@ -43,6 +43,7 @@ public class VisualisationObjetsGit extends Application {
         
         File gitRepository = dc.showDialog(stage);
         
+        // DirectoryChooser.showDialog renvoie null en cas d'annulation
         if(gitRepository == null) {
             return null;
         }
