@@ -31,11 +31,11 @@ public class VisualisationObjetsGit extends Application {
      * 
      * @param stage conteneur parent a cette fenetre de selection de dossier
      * 
-     * @return chemin absolu du dossier ".git"
+     * @return objet "File" representant le dossier ".git"
      * 
      * @throws exceptions.NotGitRepositoryException 
      */
-    public String openGitRepository(Stage stage) throws NotGitRepositoryException {
+    public File openGitRepository(Stage stage) throws NotGitRepositoryException {
         
         DirectoryChooser dc = new DirectoryChooser();
         
@@ -52,7 +52,7 @@ public class VisualisationObjetsGit extends Application {
             
         }
         
-        return gitDirectory.getAbsolutePath();
+        return gitDirectory;
 
 
 // code pour recuperer la liste des dossiers dans ".git/objects"
@@ -93,7 +93,7 @@ public class VisualisationObjetsGit extends Application {
             boolean validGitRepo; 
             do {
                 try {
-                    String gitDirAbsolutePath = openGitRepository(primaryStage);
+                    String gitDirAbsolutePath = openGitRepository(primaryStage).getAbsolutePath();
                     validGitRepo = true;
                     System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
                 }
