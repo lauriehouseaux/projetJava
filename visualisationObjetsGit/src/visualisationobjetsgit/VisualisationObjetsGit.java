@@ -10,6 +10,8 @@ import java.io.File;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -87,14 +89,21 @@ public class VisualisationObjetsGit extends Application {
             MenuItem menuFileOpen = new MenuItem("ouvrir");
 
             menuFileOpen.setOnAction( (ActionEvent t) -> {
-                
+               
+            boolean validGitRepo; 
+            do {
                 try {
                     String gitDirAbsolutePath = openGitRepository(primaryStage);
+                    validGitRepo = true;
                     System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
                 }
                 catch(NotGitRepositoryException e) {
-                    System.err.println(e.getMessage());
+//                    System.err.println(e.getMessage());
+                    Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+                    alert.showAndWait();
+                    validGitRepo = false;
                 }
+            }while( !validGitRepo );
                 
             } );
 
