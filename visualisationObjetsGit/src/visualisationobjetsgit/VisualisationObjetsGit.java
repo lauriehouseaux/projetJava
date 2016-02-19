@@ -15,6 +15,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -24,6 +26,10 @@ import javafx.stage.Stage;
  * @author Jarretier Adrien "jarretier.adrien@gmail.com"
  */
 public class VisualisationObjetsGit extends Application {
+    
+    private String gitDirAbsolutePath;
+    private TreeItem<String> rootTreeListeFichiers;
+    private TreeView<String> treeListeFichiers;
    
     /**
      * ouvre une fenetre de selection de dossier,
@@ -95,34 +101,37 @@ public class VisualisationObjetsGit extends Application {
 
             // element "ouvrir" dans le menu "fichier"
             MenuItem menuFileOpen = new MenuItem("ouvrir");
-
+            
             menuFileOpen.setOnAction( (ActionEvent t) -> {
                
-            boolean validGitRepo; 
-            do {
-                try {
-                    File gitDir = openGitRepository(primaryStage);
-                    
-                    // si openGitRepository renvoie null on ne fait aucun traitement
-                    // ( la selection de dossier a ete annulee )
-                    if( gitDir != null ) {
-                        
-                        String gitDirAbsolutePath = gitDir.getAbsolutePath();
-                        System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
-                        
+                boolean validGitRepo; 
+                do {
+                    try {
+                        File gitDir = openGitRepository(primaryStage);
+
+                        // si openGitRepository renvoie null on ne fait aucun traitement
+                        // ( la selection de dossier a ete annulee )
+                        if( gitDir != null ) {
+
+                            gitDirAbsolutePath = gitDir.getAbsolutePath();
+                            System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
+                            rootTreeListeFichiers.setValue(gitDirAbsolutePath);
+                            
+                            rootTreeListeFichiers.setExpanded(true);
+
+                        }
+
+                        validGitRepo = true;
                     }
-                    
-                    validGitRepo = true;
-                }
-                catch(NotGitRepositoryException e) {
-                    
-//                    System.err.println(e.getMessage());
-                    Alert alert = new Alert(AlertType.ERROR, e.getMessage());
-                    alert.showAndWait();
-                    validGitRepo = false;
-                    
-                }
-            }while( !validGitRepo );
+                    catch(NotGitRepositoryException e) {
+
+    //                    System.err.println(e.getMessage());
+                        Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+                        alert.showAndWait();
+                        validGitRepo = false;
+
+                    }
+                }while( !validGitRepo );
                 
             } );
 
@@ -134,6 +143,17 @@ public class VisualisationObjetsGit extends Application {
         // ajout de la barre de menu dans la fenetre principale
         root.setTop(menuBar);
         
+        // ------------------------------------------------------------
+        // ----------------- tree View Liste fichiers -----------------
+            
+            rootTreeListeFichiers = new TreeItem("git directory");
+        
+            treeListeFichiers = new TreeView<>(rootTreeListeFichiers);
+            
+            root.setLeft(treeListeFichiers);
+        
+        // ----------------- tree View Liste fichiers -----------------
+        // ------------------------------------------------------------
 
 // code de la barre de recherche * sera réutilisé plus tard *     
 //        GridPane grid = new GridPane();
