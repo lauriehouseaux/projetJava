@@ -42,17 +42,23 @@ public class VisualisationObjetsGit extends Application {
         dc.setInitialDirectory(new File(System.getProperty("user.dir")));
         
         File gitRepository = dc.showDialog(stage);
-        File gitDirectory = new File(gitRepository, ".git");
         
-        // leve une exception si le dossier ".git" n'existe pas
-        // autrement dit : si le dossier selectionne n'est pas un depot git
-        if(!gitDirectory.exists()) {
-            
-            throw new NotGitRepositoryException("Ce n'est pas un depot git valide !");
-            
+        if(gitRepository == null) {
+            return null;
         }
-        
-        return gitDirectory;
+        else { 
+            File gitDirectory = new File(gitRepository, ".git");
+
+            // leve une exception si le dossier ".git" n'existe pas
+            // autrement dit : si le dossier selectionne n'est pas un depot git
+            if(!gitDirectory.exists()) {
+
+                throw new NotGitRepositoryException("Ce n'est pas un depot git valide !");
+
+            }
+
+            return gitDirectory;
+        }
 
 
 // code pour recuperer la liste des dossiers dans ".git/objects"
@@ -93,15 +99,24 @@ public class VisualisationObjetsGit extends Application {
             boolean validGitRepo; 
             do {
                 try {
-                    String gitDirAbsolutePath = openGitRepository(primaryStage).getAbsolutePath();
+                    File gitDir = openGitRepository(primaryStage);
+                    
+                    if( gitDir != null ) {
+                        
+                        String gitDirAbsolutePath = gitDir.getAbsolutePath();
+                        System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
+                        
+                    }
+                    
                     validGitRepo = true;
-                    System.out.println( "gitDirAbsolutePath : " + gitDirAbsolutePath );
                 }
                 catch(NotGitRepositoryException e) {
+                    
 //                    System.err.println(e.getMessage());
                     Alert alert = new Alert(AlertType.ERROR, e.getMessage());
                     alert.showAndWait();
                     validGitRepo = false;
+                    
                 }
             }while( !validGitRepo );
                 
