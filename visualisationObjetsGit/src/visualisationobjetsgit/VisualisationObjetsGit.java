@@ -7,6 +7,7 @@ package visualisationobjetsgit;
 
 import exceptions.NotGitRepositoryException;
 import java.io.File;
+import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -83,7 +84,7 @@ public class VisualisationObjetsGit extends Application {
         File gitObjectsDirectory = new File(gitDirectory, "objects");
         
         // on assigne le chemin "nomDepot/.git/objects" a l'item racine
-            String[] pathDirectories = gitObjectsDirectory.getAbsolutePath().split(File.separator);
+            String[] pathDirectories = gitObjectsDirectory.getAbsolutePath().split( Pattern.quote(File.separator) );
 
             String rootValue = pathDirectories[pathDirectories.length-3];
             
