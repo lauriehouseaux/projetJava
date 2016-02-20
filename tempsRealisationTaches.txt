@@ -32,5 +32,5 @@ codage recuperation et lecture fichiers git : 1/2
 
 semaine 15/02 21/02
 
-codage interface utilisateur : 1/2
+codage interface utilisateur : 1
 
