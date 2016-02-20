@@ -77,20 +77,34 @@ public class VisualisationObjetsGit extends Application {
      */
     public void addListObjectsInTreeView( File gitDirectory ) {
     
+        // on vide la liste pour en refaire une nouvelle
+        rootTreeListeFichiers.getChildren().clear();
+        
         File gitObjectsDirectory = new File(gitDirectory, "objects");
         
-        rootTreeListeFichiers.setValue(gitObjectsDirectory.getAbsolutePath());
+        // on assigne le chemin "nomDepot/.git/objects" a l'item racine
+            String[] pathDirectories = gitObjectsDirectory.getAbsolutePath().split(File.separator);
 
+            String rootValue = pathDirectories[pathDirectories.length-3];
+            
+            for (int i = pathDirectories.length-2; i < pathDirectories.length; i++) {
+                rootValue += File.separator + pathDirectories[i];
+            }
+            rootTreeListeFichiers.setValue(rootValue);
+        
+        // liste des dossiers deroulee par defaut
         rootTreeListeFichiers.setExpanded(true);
         
         File[] gitObjectsSubDirectories = gitObjectsDirectory.listFiles();
         
+        // pour chaque dossier dans objects on ajoute un item
         for (File gitObjectsSubDirectory : gitObjectsSubDirectories) {
             
             TreeItem<String> subDirectoryItem = new TreeItem<>(gitObjectsSubDirectory.getName());
             
             File[] gitObjects = gitObjectsSubDirectory.listFiles();
             
+            // ajout de la liste des fichiers de ce dossier
             for (File gitObject : gitObjects) {
                 TreeItem<String> objectItem = new TreeItem<>(gitObject.getName());
                 subDirectoryItem.getChildren().add(objectItem);
