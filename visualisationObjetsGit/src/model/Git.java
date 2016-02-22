@@ -2,7 +2,6 @@ package model;
 
 import java.io.File;
 import java.util.ArrayList;
-import static org.eclipse.jgit.lib.ObjectChecker.type;
 
 
 
@@ -20,6 +19,17 @@ public class Git {
     private String dossierGit;  
     ArrayList <GitObject> objects = new ArrayList();
     
+    public enum ObjectType {
+        BLOB, TREE, COMMIT, TAG,
+        NONE
+    }
+    
+    public static ObjectType getType( File _gitObject ) {
+        
+        return ObjectType.NONE;
+        
+    }
+    
     public void Git(String adresse){
         File dossierObjects= new File(adresse,"objects");
         
@@ -27,26 +37,29 @@ public class Git {
 
             for (File f2: f.listFiles()){
                 
-                type = Jgit.getType(f2);
+                ObjectType type = getType(f2);
                 
                 switch(type){
                     
-                    case Blob:
+                    case BLOB:
                         objects.add(new Blob( f2.getAbsolutePath() ));
                         break;
                         
-                    case Tree:
+                    case TREE:
                         objects.add(new Tree( f2.getAbsolutePath() ));
                         break;
                         
-                    case Commit:
+                    case COMMIT:
                         objects.add(new Commit( f2.getAbsolutePath() ));
                         break;
                         
-                    case Tag:
+                    case TAG:
                         objects.add(new Tag( f2.getAbsolutePath() ));
                         break;
                 }
             }
         }
     }
+
+}
+    
