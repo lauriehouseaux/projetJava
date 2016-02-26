@@ -19,6 +19,8 @@ public class Git {
     private String dossierGit;  
     ArrayList <GitObject> objects = new ArrayList();
     
+    // defini les types d'objets que l'on peut rencontrer dans .git/objects
+    // cette enum correspond aux classes derivants de GitObject
     public enum ObjectType {
         BLOB, TREE, COMMIT, TAG,
         NONE
