@@ -38,4 +38,5 @@ codage interface utilisateur : 1
 semaine 22/02 28/02
 
 (debut 16h)
+(fin 00h)
 
