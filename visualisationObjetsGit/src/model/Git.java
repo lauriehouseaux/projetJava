@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -28,8 +29,23 @@ public class Git extends Observable{
         objects = new ArrayList();
     }
     
-    public void setGitDirectory(File _gitDirectory){
+    public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException{
+        
+        if(!_gitDirectory.exists()) {
+            throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'existe pas");
+        }
+        
+        if( !_gitDirectory.getName().equals(".git") ) {
+            throw new NotGitDirectoryException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'est pas un dossier <.git>");
+        }
+        
         File objectsDirectory= new File(_gitDirectory,"objects");
+        
+        if(!objectsDirectory.exists()) {
+            throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getName()+ "> n'existe pas");
+        }
+        
+        gitDirectory = _gitDirectory;
         
         for (File f: objectsDirectory.listFiles()){
 
