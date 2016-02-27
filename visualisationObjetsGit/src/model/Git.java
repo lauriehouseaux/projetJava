@@ -2,26 +2,17 @@ package model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Observable;
 
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author COT
- */
-public class Git {
-    private String dossierGit;  
-    ArrayList <GitObject> objects = new ArrayList();
+public class Git extends Observable{
+    private File gitDirectory;  
+    private ArrayList<GitObject> objects;
     
     // defini les types d'objets que l'on peut rencontrer dans .git/objects
     // cette enum correspond aux classes derivants de GitObject
-    public enum ObjectType {
+    private enum ObjectType {
         BLOB, TREE, COMMIT, TAG,
         NONE
     }
@@ -32,10 +23,15 @@ public class Git {
         
     }
     
-    public void Git(String adresse){
-        File dossierObjects= new File(adresse,"objects");
+    public void Git(){
+        gitDirectory = null;
+        objects = new ArrayList();
+    }
+    
+    public void setGitDirectory(File _gitDirectory){
+        File objectsDirectory= new File(_gitDirectory,"objects");
         
-        for (File f: dossierObjects.listFiles()){
+        for (File f: objectsDirectory.listFiles()){
 
             for (File f2: f.listFiles()){
                 
@@ -44,19 +40,19 @@ public class Git {
                 switch(type){
                     
                     case BLOB:
-                        objects.add(new Blob( f2.getAbsolutePath() ));
+                        objects.add(new Blob( f2 ));
                         break;
                         
                     case TREE:
-                        objects.add(new Tree( f2.getAbsolutePath() ));
+                        objects.add(new Tree( f2 ));
                         break;
                         
                     case COMMIT:
-                        objects.add(new Commit( f2.getAbsolutePath() ));
+                        objects.add(new Commit( f2 ));
                         break;
                         
                     case TAG:
-                        objects.add(new Tag( f2.getAbsolutePath() ));
+                        objects.add(new Tag( f2 ));
                         break;
                 }
             }

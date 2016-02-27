@@ -1,20 +1,13 @@
 package model;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.io.File;
 
-/**
- *
- * @author COT
- */
+
 public class Tag extends GitObject{
     
-    public Tag(String _adresseAbsolue) {
+    public Tag(File _file) {
         
-        super(_adresseAbsolue);
+        super(_file);
         
     }
     

@@ -1,20 +1,13 @@
 package model;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.io.File;
 
-/**
- *
- * @author COT
- */
+
 public class Blob extends GitObject{
     
-    public Blob(String _adresseAbsolue) {
+    public Blob(File _file) {
         
-        super(_adresseAbsolue);
+        super(_file);
         
     }
     

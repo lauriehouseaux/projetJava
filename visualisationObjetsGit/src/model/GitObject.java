@@ -1,28 +1,21 @@
 package model;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.io.File;
 
-/**
- *
- * @author COT
- */
+
 abstract class GitObject {
-    private String contenu;
-    private String adresseAbsolue;
+    private String content;
+    private File gitObjectFile;
     
-    public String getContenu(){
-        return contenu;
+    public String getContent(){
+        return content;
     }
-    public String getAdresse(){
-        return adresseAbsolue;
+    public String getAbsolutePath(){
+        return gitObjectFile.getAbsolutePath();
     }
-    public GitObject(String _adresseAbsolue){
+    public GitObject(File _gitObjectFile){
         
-        adresseAbsolue = _adresseAbsolue;
+        gitObjectFile = _gitObjectFile;
         
     }
 }
