@@ -41,3 +41,8 @@ semaine 22/02 28/02
 (fin 00h)
 
 (debut 13h)
+(fin 19h)
+
+(debut 16h)
+(fin 21h)
++ 2 * 2h

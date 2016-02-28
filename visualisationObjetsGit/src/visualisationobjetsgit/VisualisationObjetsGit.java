@@ -2,7 +2,6 @@ package visualisationobjetsgit;
 
 import exceptions.NotGitRepositoryException;
 import java.io.File;
-import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -11,21 +10,26 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import views.GitObjectsFilesTreeView;
 
 /**
  *
  * @author Jarretier Adrien "jarretier.adrien@gmail.com"
  */
 public class VisualisationObjetsGit extends Application {
-    
-    private TreeItem<String> rootTreeListeFichiers;
-    private TreeView<String> treeListeFichiers;
    
+    private GitObjectsFilesTreeView objectsFilesList;
+
+    @Override
+    public void init() {
+        
+        objectsFilesList = new GitObjectsFilesTreeView();
+        
+    }
+    
     /**
      * ouvre une fenetre de selection de dossier,
      * le dossier doit etre un depot git valide
@@ -64,53 +68,6 @@ public class VisualisationObjetsGit extends Application {
         }
     }
     
-    /**
-     * remplit la TreeView sur le cote gauche
-     * avec la liste des fichiers de ".git/objects"
-     * 
-     * @param gitDirectory dossier ".git"
-     * 
-     */
-    public void addListObjectsInTreeView( File gitDirectory ) {
-    
-        // on vide la liste pour en refaire une nouvelle
-        rootTreeListeFichiers.getChildren().clear();
-        
-        File gitObjectsDirectory = new File(gitDirectory, "objects");
-        
-        // on assigne le chemin "nomDepot/.git/objects" a l'item racine
-            String[] pathDirectories = gitObjectsDirectory.getAbsolutePath().split( Pattern.quote(File.separator) );
-
-            String rootValue = pathDirectories[pathDirectories.length-3];
-            
-            for (int i = pathDirectories.length-2; i < pathDirectories.length; i++) {
-                rootValue += File.separator + pathDirectories[i];
-            }
-            rootTreeListeFichiers.setValue(rootValue);
-        
-        // liste des dossiers deroulee par defaut
-        rootTreeListeFichiers.setExpanded(true);
-        
-        File[] gitObjectsSubDirectories = gitObjectsDirectory.listFiles();
-        
-        // pour chaque dossier dans objects on ajoute un item
-        for (File gitObjectsSubDirectory : gitObjectsSubDirectories) {
-            
-            TreeItem<String> subDirectoryItem = new TreeItem<>(gitObjectsSubDirectory.getName());
-            
-            File[] gitObjects = gitObjectsSubDirectory.listFiles();
-            
-            // ajout de la liste des fichiers de ce dossier
-            for (File gitObject : gitObjects) {
-                TreeItem<String> objectItem = new TreeItem<>(gitObject.getName());
-                subDirectoryItem.getChildren().add(objectItem);
-            }
-            
-            rootTreeListeFichiers.getChildren().add(subDirectoryItem);
-        }
-        
-    }
-    
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Visualisation objets git");
@@ -121,12 +78,15 @@ public class VisualisationObjetsGit extends Application {
         
         // fenetre principale de taille fixe 1280 x 720p
         Scene scene = new Scene(root, 1280, 720);
-
-        // barre de menu
-        MenuBar menuBar = new MenuBar();
         
-        // ------------------------------------------------------------
-        // ---------------------- menu "fichier" ----------------------
+        
+        
+        // -----------------------------------------------------------
+        // ---------------------- barre de menu ----------------------
+
+            // barre de menu
+            MenuBar menuBar = new MenuBar();
+        
             Menu menuFile = new Menu("Fichier");
             menuBar.getMenus().add(menuFile);
 
@@ -143,7 +103,7 @@ public class VisualisationObjetsGit extends Application {
                         // si openGitRepository renvoie null on ne fait aucun traitement
                         // ( la selection de dossier a ete annulee )
                         if( gitDir != null ) {
-                            addListObjectsInTreeView( gitDir );
+                            objectsFilesList.addListObjectsInTreeView( gitDir );
                         }
 
                         validGitRepo = true;
@@ -160,27 +120,25 @@ public class VisualisationObjetsGit extends Application {
             } );
 
             menuFile.getItems().add(menuFileOpen);
-        // ---------------------- menu "fichier" ----------------------
-        // ------------------------------------------------------------
-
             
-        // ajout de la barre de menu dans la fenetre principale
-        root.setTop(menuBar);
+            // ajout de la barre de menu dans la fenetre principale
+            root.setTop(menuBar);
+            
+        // ---------------------- barre de menu ----------------------
+        // -----------------------------------------------------------
         
+            
+            
         // ------------------------------------------------------------
         // ----------------- tree View Liste fichiers -----------------
             
-            rootTreeListeFichiers = new TreeItem("git objects directory");
-        
-            // nouvelle TreeView avec l'element racine "rootTreeListeFichiers"
-            // le dossier => ".git/objects"
-            treeListeFichiers = new TreeView<>(rootTreeListeFichiers);
-            
-            root.setLeft(treeListeFichiers);
+            root.setLeft(objectsFilesList);
         
         // ----------------- tree View Liste fichiers -----------------
         // ------------------------------------------------------------
 
+            
+            
 // code de la barre de recherche * sera réutilisé plus tard *     
 //        GridPane grid = new GridPane();
 //        grid.setPadding(new Insets(30, 30, 30, 30));
@@ -200,6 +158,8 @@ public class VisualisationObjetsGit extends Application {
         
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        
     }
 
     /**
