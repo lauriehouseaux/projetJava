@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import views.GitObjectFileContentView;
 import views.GitObjectsFilesTreeView;
 
 /**
@@ -22,11 +23,13 @@ import views.GitObjectsFilesTreeView;
 public class VisualisationObjetsGit extends Application {
    
     private GitObjectsFilesTreeView objectsFilesList;
+    private GitObjectFileContentView objectContent;
 
     @Override
     public void init() {
         
         objectsFilesList = new GitObjectsFilesTreeView();
+        objectContent = new GitObjectFileContentView();
         
     }
     
@@ -41,7 +44,7 @@ public class VisualisationObjetsGit extends Application {
      * 
      * @throws exceptions.NotGitRepositoryException 
      */
-    public File openGitRepository(Stage stage) throws NotGitRepositoryException {
+    private File openGitRepository(Stage stage) throws NotGitRepositoryException {
         
         DirectoryChooser dc = new DirectoryChooser();
         
@@ -129,13 +132,14 @@ public class VisualisationObjetsGit extends Application {
         
             
             
-        // ------------------------------------------------------------
-        // ----------------- tree View Liste fichiers -----------------
+        // -----------------------------------------
+        // ----------------- views -----------------
             
             root.setLeft(objectsFilesList);
+            root.setCenter(objectContent);
         
-        // ----------------- tree View Liste fichiers -----------------
-        // ------------------------------------------------------------
+        // ----------------- views -----------------
+        // -----------------------------------------
 
             
             
