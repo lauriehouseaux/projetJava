@@ -1,7 +1,11 @@
 package visualisationobjetsgit;
 
+import exceptions.DirectoryDoesNotExistException;
+import exceptions.NotGitDirectoryException;
 import exceptions.NotGitRepositoryException;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -13,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import model.Git;
 import views.GitObjectFileContentView;
 import views.GitObjectsFilesTreeView;
 
@@ -22,13 +27,17 @@ import views.GitObjectsFilesTreeView;
  */
 public class VisualisationObjetsGit extends Application {
    
+    private Git gitModel;
+    
     private GitObjectsFilesTreeView objectsFilesList;
     private GitObjectFileContentView objectContent;
 
     @Override
     public void init() {
         
-        objectsFilesList = new GitObjectsFilesTreeView();
+        gitModel = new Git();
+        
+        objectsFilesList = new GitObjectsFilesTreeView( gitModel );
         objectContent = new GitObjectFileContentView();
         
     }
@@ -44,7 +53,7 @@ public class VisualisationObjetsGit extends Application {
      * 
      * @throws exceptions.NotGitRepositoryException 
      */
-    private File openGitRepository(Stage stage) throws NotGitRepositoryException {
+    private void openGitRepository(Stage stage) throws NotGitRepositoryException, DirectoryDoesNotExistException, NotGitDirectoryException {
         
         DirectoryChooser dc = new DirectoryChooser();
         
@@ -54,20 +63,20 @@ public class VisualisationObjetsGit extends Application {
         
         // DirectoryChooser.showDialog renvoie null en cas d'annulation
         if(gitRepository == null) {
-            return null;
+//            return null;
         }
         else { 
             File gitDirectory = new File(gitRepository, ".git");
+            
+            if(!gitDirectory.exists()) {
+                throw new NotGitRepositoryException("Ce n'est pas un depot git valide !");
+            }
+            
+            gitModel.setGitDirectory(gitDirectory);
 
             // leve une exception si le dossier ".git" n'existe pas
             // autrement dit : si le dossier selectionne n'est pas un depot git
-            if(!gitDirectory.exists()) {
-
-                throw new NotGitRepositoryException("Ce n'est pas un depot git valide !");
-
-            }
-
-            return gitDirectory;
+//            return gitDirectory;
         }
     }
     
@@ -101,17 +110,18 @@ public class VisualisationObjetsGit extends Application {
                 boolean validGitRepo; 
                 do {
                     try {
-                        File gitDir = openGitRepository(primaryStage);
+//                        File gitDir = openGitRepository(primaryStage);
+                        openGitRepository(primaryStage);
 
                         // si openGitRepository renvoie null on ne fait aucun traitement
                         // ( la selection de dossier a ete annulee )
-                        if( gitDir != null ) {
-                            objectsFilesList.addListGitObjects( gitDir );
-                        }
+//                        if( gitDir != null ) {
+//                            objectsFilesList.addListGitObjects( gitDir );
+//                        }
 
                         validGitRepo = true;
                     }
-                    catch(NotGitRepositoryException e) {
+                    catch(NotGitDirectoryException | NotGitRepositoryException | DirectoryDoesNotExistException e) {
 
                         Alert alert = new Alert(AlertType.ERROR, e.getMessage());
                         alert.showAndWait();

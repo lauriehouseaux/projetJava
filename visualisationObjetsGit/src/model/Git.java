@@ -42,7 +42,7 @@ public class Git extends Observable{
         File objectsDirectory= new File(_gitDirectory,"objects");
         
         if(!objectsDirectory.exists()) {
-            throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getName()+ "> n'existe pas");
+            throw new DirectoryDoesNotExistException("Le dossier <" + objectsDirectory.getName()+ "> n'existe pas");
         }
         
         gitDirectory = _gitDirectory;
@@ -73,7 +73,17 @@ public class Git extends Observable{
                 }
             }
         }
+        
+        setChanged();
+        notifyObservers();
+        
     }
 
+    public File getGitDirectory() {
+        
+        return gitDirectory;
+        
+    }
+    
 }
     

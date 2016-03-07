@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.regex.Pattern;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import model.Git;
 
 /**
  * Vue de la liste des fichiers ".git/objects" sous forme de TreeView
@@ -14,6 +15,7 @@ import javafx.scene.control.TreeView;
  */
 public class GitObjectsFilesTreeView extends TreeView<String> implements Observer {
     
+    private Git model;
     private TreeItem<String> rootTreeListeFichiers;
     
     /**
@@ -63,9 +65,13 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
         
     }
     
-    public GitObjectsFilesTreeView() {
+    public GitObjectsFilesTreeView( Git model ) {
     
         super();
+    
+        model.addObserver(this);
+        
+        this.model = model;
         
         rootTreeListeFichiers = new TreeItem("git objects directory");
 
@@ -78,7 +84,7 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
     @Override
     public void update(Observable o, Object arg) {
         
-        
+        addListGitObjects( model.getGitDirectory() );
         
     }
 }
