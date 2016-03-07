@@ -23,7 +23,7 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
      * @param gitDirectory dossier ".git"
      * 
      */
-    public void addListObjectsInTreeView( File gitDirectory ) {
+    public void addListGitObjects( File gitDirectory ) {
     
         // on vide la liste pour en refaire une nouvelle
         rootTreeListeFichiers.getChildren().clear();

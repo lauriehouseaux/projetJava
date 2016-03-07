@@ -106,7 +106,7 @@ public class VisualisationObjetsGit extends Application {
                         // si openGitRepository renvoie null on ne fait aucun traitement
                         // ( la selection de dossier a ete annulee )
                         if( gitDir != null ) {
-                            objectsFilesList.addListObjectsInTreeView( gitDir );
+                            objectsFilesList.addListGitObjects( gitDir );
                         }
 
                         validGitRepo = true;
