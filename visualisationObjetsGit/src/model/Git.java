@@ -47,21 +47,22 @@ public class Git extends Observable{
           Byte[] file = ReadFile(_gitObject);
           StringBuilder mot = new StringBuilder();
           for (int i = 0; i < 10; i++) {
-             mot.append(file[i]);
+             mot.append((char)file[i].byteValue());
+              System.out.println(mot.toString());
                     }
           if(mot.toString().startsWith("tree")){
             return ObjectType.TREE;
           }
           
-          if(mot.toString().startsWith("tag")){
+          else if(mot.toString().startsWith("tag")){
             return ObjectType.TAG;
           }
           
-          if(mot.toString().startsWith("blob")){
+          else if(mot.toString().startsWith("blob")){
             return ObjectType.BLOB;
           }
           
-          if(mot.toString().startsWith("commit")){
+          else if(mot.toString().startsWith("commit")){
             return ObjectType.COMMIT;
           }
           
