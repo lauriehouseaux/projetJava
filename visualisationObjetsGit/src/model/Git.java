@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
 
 
 
@@ -23,40 +24,30 @@ public class Git extends Observable{
         NONE
     }
     
-    public static byte[] ReadFile(File f) throws DataFormatException, FileNotFoundException, IOException{
-		FileInputStream fis;
-		int octetLu;
-			
-    //creation d'un flux d'entrée ayant pour source un fichier nommé 			
-    //source,cette instanciation peut lever une exception de type 				
-		fis = new FileInputStream(f);
-                // initialisation d'un tableau d'octet
-                byte[] b = new byte[30];
-                // placement de chaque octet lu dans le tableau
-                octetLu = fis.read(b);
-                        
-                        //System.out.println(octetLu);
-                    
-			//lecture des données
-			Inflater decompresser = new Inflater();
-                        // decompression du fichier par rapport a la taille de notre tableau
-                        decompresser.setInput(b,0,octetLu);
-                        // initialisation d'un tableau d'octet
-                        byte[] res = new byte[100];
-                        //decompression du fichier + recuperation de la taille du tableau 
-                        int taille = decompresser.inflate(res);
-                        decompresser.end();
-                        
-                        return res;
-	}
+    public static Byte[] ReadFile(File f) throws DataFormatException, FileNotFoundException, IOException{
+  				
+	FileInputStream fis = new FileInputStream(f);
+        
+        InflaterInputStream decompresser = new InflaterInputStream(fis);
+                
+        ArrayList<Byte> LectureFichier = new ArrayList();
+        int caract;
+        
+        while((caract = decompresser.read()) != -1){
+             LectureFichier.add( (byte)caract );
+        }
+         
+        return LectureFichier.toArray(new Byte[0]);         
+               
+    }
     
     
     
     public static ObjectType getType( File _gitObject ) throws DataFormatException, IOException {
-          byte[] file = ReadFile(_gitObject);
+          Byte[] file = ReadFile(_gitObject);
           StringBuilder mot = new StringBuilder();
           for (int i = 0; i < 10; i++) {
-             mot.append((char)file[i]);
+             mot.append(file[i]);
                     }
           if(mot.toString().startsWith("tree")){
             return ObjectType.TREE;
