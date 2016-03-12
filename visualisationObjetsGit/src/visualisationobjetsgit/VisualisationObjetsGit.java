@@ -4,8 +4,8 @@ import exceptions.DirectoryDoesNotExistException;
 import exceptions.NotGitDirectoryException;
 import exceptions.NotGitRepositoryException;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.util.zip.DataFormatException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -53,7 +53,7 @@ public class VisualisationObjetsGit extends Application {
      * 
      * @throws exceptions.NotGitRepositoryException 
      */
-    private void openGitRepository(Stage stage) throws NotGitRepositoryException, DirectoryDoesNotExistException, NotGitDirectoryException {
+    private void openGitRepository(Stage stage) throws NotGitRepositoryException, DirectoryDoesNotExistException, NotGitDirectoryException, DataFormatException, IOException {
         
         DirectoryChooser dc = new DirectoryChooser();
         
@@ -121,7 +121,7 @@ public class VisualisationObjetsGit extends Application {
 
                         validGitRepo = true;
                     }
-                    catch(NotGitDirectoryException | NotGitRepositoryException | DirectoryDoesNotExistException e) {
+                    catch(NotGitDirectoryException | NotGitRepositoryException | DirectoryDoesNotExistException | DataFormatException | IOException e) {
 
                         Alert alert = new Alert(AlertType.ERROR, e.getMessage());
                         alert.showAndWait();

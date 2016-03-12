@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.zip.DataFormatException;
-import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
 
@@ -24,7 +23,7 @@ public class Git extends Observable{
         NONE
     }
     
-    public static Byte[] ReadFile(File f) throws DataFormatException, FileNotFoundException, IOException{
+    private static Byte[] ReadFile(File f) throws DataFormatException, FileNotFoundException, IOException{
   				
 	FileInputStream fis = new FileInputStream(f);
         
@@ -43,12 +42,11 @@ public class Git extends Observable{
     
     
     
-    public static ObjectType getType( File _gitObject ) throws DataFormatException, IOException {
+    private static ObjectType getType( File _gitObject ) throws DataFormatException, IOException {
           Byte[] file = ReadFile(_gitObject);
           StringBuilder mot = new StringBuilder();
           for (int i = 0; i < 10; i++) {
              mot.append((char)file[i].byteValue());
-              System.out.println(mot.toString());
                     }
           if(mot.toString().startsWith("tree")){
             return ObjectType.TREE;
@@ -71,7 +69,7 @@ public class Git extends Observable{
           }
     }
     
-    public void Git(){
+    public Git(){
         gitDirectory = null;
         objects = new ArrayList();
     }
