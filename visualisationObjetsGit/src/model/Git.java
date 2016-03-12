@@ -2,8 +2,14 @@ package model;
 
 import exceptions.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
 
 
 
@@ -18,10 +24,51 @@ public class Git extends Observable{
         NONE
     }
     
-    public static ObjectType getType( File _gitObject ) {
+    public static Byte[] ReadFile(File f) throws DataFormatException, FileNotFoundException, IOException{
+  				
+	FileInputStream fis = new FileInputStream(f);
         
-        return ObjectType.NONE;
+        InflaterInputStream decompresser = new InflaterInputStream(fis);
+                
+        ArrayList<Byte> LectureFichier = new ArrayList();
+        int caract;
         
+        while((caract = decompresser.read()) != -1){
+             LectureFichier.add( (byte)caract );
+        }
+         
+        return LectureFichier.toArray(new Byte[0]);         
+               
+    }
+    
+    
+    
+    public static ObjectType getType( File _gitObject ) throws DataFormatException, IOException {
+          Byte[] file = ReadFile(_gitObject);
+          StringBuilder mot = new StringBuilder();
+          for (int i = 0; i < 10; i++) {
+             mot.append((char)file[i].byteValue());
+              System.out.println(mot.toString());
+                    }
+          if(mot.toString().startsWith("tree")){
+            return ObjectType.TREE;
+          }
+          
+          else if(mot.toString().startsWith("tag")){
+            return ObjectType.TAG;
+          }
+          
+          else if(mot.toString().startsWith("blob")){
+            return ObjectType.BLOB;
+          }
+          
+          else if(mot.toString().startsWith("commit")){
+            return ObjectType.COMMIT;
+          }
+          
+          else {
+              return ObjectType.NONE;
+          }
     }
     
     public void Git(){
@@ -29,7 +76,7 @@ public class Git extends Observable{
         objects = new ArrayList();
     }
     
-    public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException{
+    public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException, DataFormatException, IOException{
         
         if(!_gitDirectory.exists()) {
             throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'existe pas");
