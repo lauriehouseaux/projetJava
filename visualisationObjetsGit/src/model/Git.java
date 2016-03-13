@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.zip.DataFormatException;
 import java.util.zip.InflaterInputStream;
 
 
@@ -23,7 +22,7 @@ public class Git extends Observable{
         NONE
     }
     
-    private static Byte[] ReadFile(File f) throws DataFormatException, FileNotFoundException, IOException{
+    private static Byte[] ReadFile(File f) throws FileNotFoundException, IOException{
   				
 	FileInputStream fis = new FileInputStream(f);
         
@@ -32,8 +31,13 @@ public class Git extends Observable{
         ArrayList<Byte> LectureFichier = new ArrayList();
         int caract;
         
-        while((caract = decompresser.read()) != -1){
-             LectureFichier.add( (byte)caract );
+        try {
+            while((caract = decompresser.read()) != -1){
+                LectureFichier.add( (byte)caract );
+            }
+        }
+        catch(IOException e) {
+            throw new IOException("fichier "+f.getName()+" : "+e.getMessage());
         }
          
         return LectureFichier.toArray(new Byte[0]);         
@@ -42,7 +46,7 @@ public class Git extends Observable{
     
     
     
-    private static ObjectType getType( File _gitObject ) throws DataFormatException, IOException {
+    private static ObjectType getType( File _gitObject ) throws IOException {
           Byte[] file = ReadFile(_gitObject);
           StringBuilder mot = new StringBuilder();
           for (int i = 0; i < 10; i++) {
@@ -74,7 +78,7 @@ public class Git extends Observable{
         objects = new ArrayList();
     }
     
-    public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException, DataFormatException, IOException{
+    public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException, IOException{
         
         if(!_gitDirectory.exists()) {
             throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'existe pas");
@@ -94,27 +98,30 @@ public class Git extends Observable{
         
         for (File f: objectsDirectory.listFiles()){
 
-            for (File f2: f.listFiles()){
-                
-                ObjectType type = getType(f2);
-                
-                switch(type){
-                    
-                    case BLOB:
-                        objects.add(new Blob( f2 ));
-                        break;
-                        
-                    case TREE:
-                        objects.add(new Tree( f2 ));
-                        break;
-                        
-                    case COMMIT:
-                        objects.add(new Commit( f2 ));
-                        break;
-                        
-                    case TAG:
-                        objects.add(new Tag( f2 ));
-                        break;
+            // on ne traite pas les dossiers infos et pack pour le moment
+            if(!f.getName().equals("pack") && f.getName().equals("info") ) {     
+                for (File f2: f.listFiles()){
+
+                    ObjectType type = getType(f2);
+
+                    switch(type){
+
+                        case BLOB:
+                            objects.add(new Blob( f2 ));
+                            break;
+
+                        case TREE:
+                            objects.add(new Tree( f2 ));
+                            break;
+
+                        case COMMIT:
+                            objects.add(new Commit( f2 ));
+                            break;
+
+                        case TAG:
+                            objects.add(new Tag( f2 ));
+                            break;
+                    }
                 }
             }
         }
