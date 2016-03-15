@@ -19,6 +19,8 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
     
     private Git model;
     private TreeItem<String> rootTreeListeFichiers;
+    private ArrayList< TreeItem<String> > objectsType;
+    String[] types;
     
     /**
      * remplit la TreeView sur le cote gauche
@@ -77,11 +79,23 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
     public void addListObjects( ArrayList<GitObject> objects ) {
     
         // on vide la liste pour en refaire une nouvelle
-        rootTreeListeFichiers.getChildren().clear();
+        for (TreeItem<String> itemObjectType : rootTreeListeFichiers.getChildren()) {
+            
+            itemObjectType.getChildren().clear();
+            
+        }
 
         for (GitObject object : objects) {
-            TreeItem<String> item = new TreeItem<>( object.getClass().getSimpleName().substring(0, 4)+" - "+object.getName() );
-            rootTreeListeFichiers.getChildren().add( item );
+                
+            for (int i = 0; i < this.types.length; i++) {
+                
+                if( this.types[i].contains( object.getClass().getSimpleName() ) ) {
+            
+                    TreeItem<String> item = new TreeItem<>( object.getName() );
+                    objectsType.get(i).getChildren().add( item );
+                }
+                
+            }
         }
         
         rootTreeListeFichiers.setExpanded(true);
@@ -101,6 +115,17 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
         // nouvelle TreeView avec l'element racine "rootTreeListeFichiers"
         // le dossier => ".git/objects"
         setRoot(rootTreeListeFichiers);
+        
+        setShowRoot(false);
+        
+        this.types = new String[]{"Blobs","Commits","Tags","Trees"};
+        
+        objectsType = new ArrayList<>(this.types.length);
+        
+        for (int i = 0; i < this.types.length; i++) {
+            objectsType.add( new TreeItem<>( this.types[i] ) );
+            rootTreeListeFichiers.getChildren().add( objectsType.get( i ) );
+        }
         
     }
 

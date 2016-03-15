@@ -89,9 +89,14 @@ public class Git extends Observable{
         }
         
         File objectsDirectory= new File(_gitDirectory,"objects");
+        File tagsDirectory = new File(new File(_gitDirectory,"refs"),"tags");
         
         if(!objectsDirectory.exists()) {
             throw new DirectoryDoesNotExistException("Le dossier <" + objectsDirectory.getName()+ "> n'existe pas");
+        }
+        
+        if(!tagsDirectory.exists()) {
+            throw new DirectoryDoesNotExistException("Le dossier <refs/" + tagsDirectory.getName()+ "> n'existe pas");
         }
         
         gitDirectory = _gitDirectory;
@@ -121,6 +126,12 @@ public class Git extends Observable{
                     }
                 }
             }
+        }
+        
+        for (File fTag : tagsDirectory.listFiles()) {
+            
+            objects.add( new Tag( fTag ) );
+            
         }
         
         setChanged();
