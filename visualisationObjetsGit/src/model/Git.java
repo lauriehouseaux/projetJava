@@ -22,33 +22,11 @@ public class Git extends Observable{
         NONE
     }
     
-    private static Byte[] ReadFile(File f) throws FileNotFoundException, IOException{
-  				
-	FileInputStream fis = new FileInputStream(f);
-        
-        InflaterInputStream decompresser = new InflaterInputStream(fis);
-                
-        ArrayList<Byte> LectureFichier = new ArrayList();
-        int caract;
-        
-        try {
-            while((caract = decompresser.read()) != -1){
-                LectureFichier.add( (byte)caract );
-            }
-        }
-        catch(IOException e) {
-            throw new IOException("fichier "+f.getName()+" : "+e.getMessage());
-        }
-         
-        return LectureFichier.toArray(new Byte[0]);         
-               
-    }
-    
     
     
     private static ObjectType getType( File _gitObject ) throws IOException {
         
-        Byte[] file = ReadFile(_gitObject);
+        Byte[] file = FileReading.ReadFile(_gitObject);
         StringBuilder mot = new StringBuilder();
 
         for (int i = 0; i < 10 && i < file.length; i++) {
