@@ -3,13 +3,8 @@ package model;
 import java.io.File;
 
 
-abstract class GitObject {
-    private String content;
+public abstract class GitObject {
     private File gitObjectFile;
-    
-    public String getContent(){
-        return content;
-    }
     public String getAbsolutePath(){
         return gitObjectFile.getAbsolutePath();
     }

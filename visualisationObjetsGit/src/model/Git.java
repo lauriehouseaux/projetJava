@@ -47,30 +47,34 @@ public class Git extends Observable{
     
     
     private static ObjectType getType( File _gitObject ) throws IOException {
-          Byte[] file = ReadFile(_gitObject);
-          StringBuilder mot = new StringBuilder();
-          for (int i = 0; i < 10; i++) {
-             mot.append((char)file[i].byteValue());
-                    }
-          if(mot.toString().startsWith("tree")){
+        
+        Byte[] file = ReadFile(_gitObject);
+        StringBuilder mot = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            mot.append((char)file[i].byteValue());
+        }
+
+
+        if(mot.toString().startsWith("tree")){
             return ObjectType.TREE;
-          }
-          
-          else if(mot.toString().startsWith("tag")){
+        }
+
+        else if(mot.toString().startsWith("tag")){
             return ObjectType.TAG;
-          }
-          
-          else if(mot.toString().startsWith("blob")){
+        }
+
+        else if(mot.toString().startsWith("blob")){
             return ObjectType.BLOB;
-          }
-          
-          else if(mot.toString().startsWith("commit")){
+        }
+
+        else if(mot.toString().startsWith("commit")){
             return ObjectType.COMMIT;
-          }
-          
-          else {
-              return ObjectType.NONE;
-          }
+        }
+
+        else {
+            return ObjectType.NONE;
+        }
     }
     
     public Git(){
@@ -78,7 +82,7 @@ public class Git extends Observable{
         objects = new ArrayList();
     }
     
-    public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException, IOException{
+    public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException, IOException {
         
         if(!_gitDirectory.exists()) {
             throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'existe pas");
@@ -99,7 +103,7 @@ public class Git extends Observable{
         for (File f: objectsDirectory.listFiles()){
 
             // on ne traite pas les dossiers infos et pack pour le moment
-            if(!f.getName().equals("pack") && f.getName().equals("info") ) {     
+            if(!f.getName().equals("pack") && !f.getName().equals("info") ) {     
                 for (File f2: f.listFiles()){
 
                     ObjectType type = getType(f2);
@@ -131,9 +135,9 @@ public class Git extends Observable{
         
     }
 
-    public File getGitDirectory() {
+    public ArrayList<GitObject> getObjects() {
         
-        return gitDirectory;
+        return objects;
         
     }
     

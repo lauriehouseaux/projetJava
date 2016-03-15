@@ -1,12 +1,14 @@
 package views;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import model.Git;
+import model.GitObject;
 
 /**
  * Vue de la liste des fichiers ".git/objects" sous forme de TreeView
@@ -25,7 +27,7 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
      * @param gitDirectory dossier ".git"
      * 
      */
-    public void addListGitObjects( File gitDirectory ) {
+    public void addObjectsFiles( File gitDirectory ) {
     
         // on vide la liste pour en refaire une nouvelle
         rootTreeListeFichiers.getChildren().clear();
@@ -65,6 +67,25 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
         
     }
     
+    /**
+     * remplit la TreeView sur le cote gauche
+     * avec la liste de GitObject du modele
+     * 
+     * @param objects liste des objets git
+     * 
+     */
+    public void addListObjects( ArrayList<GitObject> objects ) {
+    
+        // on vide la liste pour en refaire une nouvelle
+        rootTreeListeFichiers.getChildren().clear();
+
+        for (GitObject object : objects) {
+            TreeItem<String> item = new TreeItem<>( object.getAbsolutePath() );
+            rootTreeListeFichiers.getChildren().add( item );
+        }
+        
+    }
+    
     public GitObjectsFilesTreeView( Git model ) {
     
         super();
@@ -73,7 +94,7 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
         
         this.model = model;
         
-        rootTreeListeFichiers = new TreeItem("git objects directory");
+        rootTreeListeFichiers = new TreeItem("objets");
 
         // nouvelle TreeView avec l'element racine "rootTreeListeFichiers"
         // le dossier => ".git/objects"
@@ -84,7 +105,7 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
     @Override
     public void update(Observable o, Object arg) {
         
-        addListGitObjects( model.getGitDirectory() );
+        addListObjects( model.getObjects() );
         
     }
 }
