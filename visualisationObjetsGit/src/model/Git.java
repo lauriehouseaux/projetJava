@@ -51,21 +51,17 @@ public class Git extends Observable{
         Byte[] file = ReadFile(_gitObject);
         StringBuilder mot = new StringBuilder();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10 && i < file.length; i++) {
             mot.append((char)file[i].byteValue());
         }
 
 
-        if(mot.toString().startsWith("tree")){
-            return ObjectType.TREE;
-        }
-
-        else if(mot.toString().startsWith("tag")){
-            return ObjectType.TAG;
-        }
-
-        else if(mot.toString().startsWith("blob")){
+        if(mot.toString().startsWith("blob")){
             return ObjectType.BLOB;
+        }
+
+        else if(mot.toString().startsWith("tree")){
+            return ObjectType.TREE;
         }
 
         else if(mot.toString().startsWith("commit")){
@@ -99,6 +95,7 @@ public class Git extends Observable{
         }
         
         gitDirectory = _gitDirectory;
+        objects.clear();
         
         for (File f: objectsDirectory.listFiles()){
 
@@ -120,10 +117,6 @@ public class Git extends Observable{
 
                         case COMMIT:
                             objects.add(new Commit( f2 ));
-                            break;
-
-                        case TAG:
-                            objects.add(new Tag( f2 ));
                             break;
                     }
                 }

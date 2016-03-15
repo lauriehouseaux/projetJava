@@ -80,7 +80,7 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
         rootTreeListeFichiers.getChildren().clear();
 
         for (GitObject object : objects) {
-            TreeItem<String> item = new TreeItem<>( object.getClass().getSimpleName()+" - "+object.getName() );
+            TreeItem<String> item = new TreeItem<>( object.getClass().getSimpleName().substring(0, 4)+" - "+object.getName() );
             rootTreeListeFichiers.getChildren().add( item );
         }
         
