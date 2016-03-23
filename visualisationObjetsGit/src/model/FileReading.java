@@ -45,9 +45,18 @@ public final class FileReading {
     public static String stringValue( Byte[] inflated ) {
         
         StringBuilder content = new StringBuilder();
+        
+        int i = 0;
+        char c;
+        do {
+            c = (char)inflated[i].byteValue();
+            content.append(c);
+            i++;
+        }while (c != '\0');
 
-        for (int i = 0; i < inflated.length; i++) {
-            content.append((char)inflated[i].byteValue());
+        while(i < inflated.length) {
+            content.append(String.format("%02x", inflated[i]));
+            i++;
         }
         
         return content.toString();
