@@ -45,9 +45,14 @@ public final class FileReading {
     public static String stringValue( Byte[] inflated ) {
         
         StringBuilder content = new StringBuilder();
-
-        for (int i = 0; i < inflated.length; i++) {
-            content.append((char)inflated[i].byteValue());
+        
+        int i = 0;
+        char c;
+        while(i < inflated.length) {
+        
+            c = (char)inflated[i].byteValue();
+            content.append(c);
+            i++;
         }
         
         return content.toString();
