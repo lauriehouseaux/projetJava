@@ -53,10 +53,21 @@ public final class FileReading {
             content.append(c);
             i++;
         }while (c != '\0');
-
+        content.append('\n');
+        
         while(i < inflated.length) {
-            content.append(String.format("%02x", inflated[i]));
-            i++;
+            do {
+                c = (char)inflated[i].byteValue();
+                content.append(c);
+                i++;
+            }while (c != '\0');
+            content.append(" ");
+            
+            for(int j = 0; j<20; j++){
+                content.append(String.format("%02x", inflated[i]));
+                i++;
+            } 
+            content.append('\n');
         }
         
         return content.toString();
