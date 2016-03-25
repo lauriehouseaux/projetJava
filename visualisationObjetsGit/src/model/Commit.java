@@ -11,10 +11,10 @@ public class Commit extends GitObject{
         
         super(_file);
         
-//        System.out.println("-------------------------------------------------------");
-//        System.out.println("nom : " + this.getName());
-//        System.out.println(FileReading.stringValue( FileReading.ReadFile(_file) ));
-//        System.out.println("-------------------------------------------------------");
+        System.out.println("-------------------------------------------------------");
+        System.out.println("nom : " + this.getName());
+        System.out.println(FileReading.stringValue( FileReading.ReadFile(_file) ));
+        System.out.println("-------------------------------------------------------");
 //        
     }
     
