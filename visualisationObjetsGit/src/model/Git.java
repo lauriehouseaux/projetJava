@@ -46,6 +46,11 @@ public class Git extends Observable{
             return ObjectType.COMMIT;
         }
 
+
+        else if(mot.toString().startsWith("tag")){
+            return ObjectType.TAG;
+        }
+        
         else {
             return ObjectType.NONE;
         }
@@ -101,16 +106,20 @@ public class Git extends Observable{
                         case COMMIT:
                             objects.add(new Commit( f2 ));
                             break;
+                        
+                        case TAG:
+                            objects.add(new Tag (f2));
+                            break;
                     }
                 }
             }
         }
         
-        for (File fTag : tagsDirectory.listFiles()) {
+//        for (File fTag : tagsDirectory.listFiles()) {
+//            
+//            objects.add( new Tag( fTag ) );
             
-            objects.add( new Tag( fTag ) );
-            
-        }
+//        }
         
         setChanged();
         notifyObservers();

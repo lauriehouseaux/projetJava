@@ -14,10 +14,10 @@ public class Tree extends GitObject{
         super(_file);
         
         
-        System.out.println("-------------------------------------------------------");
-        System.out.println("nom : " + this.getName());
-        System.out.println(stringValue( FileReading.ReadFile(_file) ));
-        System.out.println("-------------------------------------------------------");
+//        System.out.println("-------------------------------------------------------");
+//        System.out.println("nom : " + this.getName());
+//        System.out.println(stringValue( FileReading.ReadFile(_file) ));
+//        System.out.println("-------------------------------------------------------");
 
     }
     
