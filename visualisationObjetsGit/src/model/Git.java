@@ -123,5 +123,10 @@ public class Git extends Observable{
         
     }
     
+    // renvoie le git object associe a la cle de 40 caracteres
+//    public GitObject find (String cle){
+//        
+//    }
+    
 }
     

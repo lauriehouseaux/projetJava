@@ -13,13 +13,13 @@ public class Tag extends GitObject{
         
         super(_file);
         
-//        FileReader fr = new FileReader(_file);
-//        BufferedReader bf = new BufferedReader(fr);
-//        
-//        System.out.println("-------------------------------------------------------");
-//        System.out.println("nom : " + this.getName());
-//        System.out.println( bf.readLine() );
-//        System.out.println("-------------------------------------------------------");
+        FileReader fr = new FileReader(_file);
+        BufferedReader bf = new BufferedReader(fr);
+        
+        System.out.println("-------------------------------------------------------");
+        System.out.println("nom : " + this.getName());
+        System.out.println( bf.readLine() );
+        System.out.println("-------------------------------------------------------");
         
         
     }
