@@ -7,10 +7,10 @@ import java.io.IOException;
 public class Blob extends GitObject{
     
 
-    public Blob(File _file) throws IOException {
+    public Blob(File _file, Git _gitInstance) throws IOException {
         
 
-        super(_file);
+        super(_file, _gitInstance);
         
 //        System.out.println("-------------------------------------------------------");
 //        System.out.println("nom : " + this.getName());

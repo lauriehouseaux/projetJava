@@ -9,9 +9,9 @@ public class Tree extends GitObject{
     
     private ArrayList<GitObject> childs;
     
-    public Tree(File _file) throws IOException {
+    public Tree(File _file, Git _gitInstance) throws IOException {
         
-        super(_file);
+        super(_file, _gitInstance);
         
         
 //        System.out.println("-------------------------------------------------------");

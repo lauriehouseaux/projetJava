@@ -91,15 +91,15 @@ public class Git extends Observable{
                     switch(type){
 
                         case BLOB:
-                            objects.add(new Blob( f2 ));
+                            objects.add(new Blob( f2, this ));
                             break;
 
                         case TREE:
-                            objects.add(new Tree( f2 ));
+                            objects.add(new Tree( f2, this ));
                             break;
 
                         case COMMIT:
-                            objects.add(new Commit( f2 ));
+                            objects.add(new Commit( f2, this ));
                             break;
                     }
                 }
@@ -108,7 +108,7 @@ public class Git extends Observable{
         
         for (File fTag : tagsDirectory.listFiles()) {
             
-            objects.add( new Tag( fTag ) );
+            objects.add( new Tag( fTag, this ) );
             
         }
         

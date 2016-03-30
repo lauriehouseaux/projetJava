@@ -6,6 +6,7 @@ import java.io.File;
 public abstract class GitObject {
     private File gitObjectFile;
     protected String name;
+    private Git gitInstance;
     
     public File getFile(){
         return gitObjectFile;
@@ -15,11 +16,13 @@ public abstract class GitObject {
         return name;
     }
     
-    public GitObject(File _gitObjectFile){
+    public GitObject(File _gitObjectFile, Git _gitInstance){
         
         gitObjectFile = _gitObjectFile;
         
         name = gitObjectFile.getParentFile().getName()+gitObjectFile.getName();
+        
+        gitInstance = _gitInstance;
         
     }
     

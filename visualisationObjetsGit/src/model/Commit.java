@@ -7,28 +7,51 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
 
 
 
 public class Commit extends GitObject{
     
-
+    private Tree tree;
+    private ArrayList< Commit > parents;
     private String authorName;
-    private String parent;
-    private String committer;
-    private String mailCommitter;
+    private String authorMail;
     private String date;
-    private String mailAuthor;
+    private String committerName;
+    private String committerMail;
     private String message;
    
-    public Commit(File _file) throws IOException {
+    public Commit(File _file, Git _gitInstance) throws IOException {
         
-        super(_file);
+        super(_file, _gitInstance);
         
-//        System.out.println("-------------------------------------------------------");
-//        System.out.println("nom : " + this.getName());
-//        System.out.println(FileReading.stringValue( FileReading.ReadFile(_file) ));
-//        System.out.println("-------------------------------------------------------");
+        String content = FileReading.stringValue( FileReading.ReadFile(_file) );
+        
+        System.out.println("-------------------------------------------------------");
+        
+        StringReader sr = new StringReader( content );
+        BufferedReader bf = new BufferedReader( sr );
+        
+        String line = bf.readLine();
+          
+        System.out.println("tree : " + line.split(" ")[2]);
+        
+        line = bf.readLine();
+        while( ! line.isEmpty() )
+        {
+            System.out.println("l : " + line);
+//            switch( line.subSequence(beginIndex, endIndex) ) {
+//             
+//                
+//                
+//            }
+
+            line = bf.readLine();
+        }
+        
+        System.out.println("-------------------------------------------------------");
 
     }   
 }
