@@ -16,16 +16,22 @@ public class Commit extends GitObject{
     
     private Tree tree;
     private ArrayList< Commit > parents;
+    
     private String authorName;
     private String authorMail;
-    private String date;
+    private String dateWritten;
+    
     private String committerName;
     private String committerMail;
+    private String dateCommitted;
+    
     private String message;
    
     public Commit(File _file, Git _gitInstance) throws IOException {
         
         super(_file, _gitInstance);
+        
+        parents = new ArrayList<>();
         
         String content = FileReading.stringValue( FileReading.ReadFile(_file) );
         
@@ -36,20 +42,75 @@ public class Commit extends GitObject{
         
         String line = bf.readLine();
           
-        System.out.println("tree : " + line.split(" ")[2]);
+//        tree = gitInstance.find( line.split(" ")[2] );
         
         line = bf.readLine();
+        
+        int i;
+        
         while( ! line.isEmpty() )
         {
-            System.out.println("l : " + line);
-//            switch( line.subSequence(beginIndex, endIndex) ) {
-//             
-//                
-//                
-//            }
+            switch( line.charAt(0)) {
+             
+                case 'p':
+//                    parents.add( gitInstance.find( line.split(" ")[1] ) );
+                    break;
+                    
+                case 'a':
+                    String[] wordsAuthorLine = line.split(" ");
+                    
+                    authorName = wordsAuthorLine[1];
+                    
+                    i=2;
+                    while( !wordsAuthorLine[i].startsWith("<") ) {
+                        
+                        authorName += ' '+wordsAuthorLine[i];
+                        i++;
+                    }
+//                    System.out.println("a : " + authorName);
+                    
+                    authorMail = wordsAuthorLine[i++].replaceAll("[<>]", "");
+//                    System.out.println("am : " + authorMail);
+                    
+                    dateWritten = wordsAuthorLine[i++]+" "+wordsAuthorLine[i];
+//                    System.out.println("dw : " + dateWritten);
+                    break;
+                    
+                case 'c':
+                    String[] wordsCommitterLine = line.split(" ");
+                    
+                    committerName = wordsCommitterLine[1];
+                    
+                    i=2;
+                    while( !wordsCommitterLine[i].startsWith("<") ) {
+                        
+                        committerName += ' '+wordsCommitterLine[i];
+                        i++;
+                    }
+//                    System.out.println("c : " + committerName);
+                    
+                    committerMail = wordsCommitterLine[i++].replaceAll("[<>]", "");
+//                    System.out.println("cm : " + committerMail);
+                    
+                    dateCommitted = wordsCommitterLine[i++]+" "+wordsCommitterLine[i];
+//                    System.out.println("dc : " + dateCommitted);
+                    break;    
+                
+            }
 
+//            System.out.println("");
             line = bf.readLine();
         }
+        
+        StringBuilder messageBuilder = new StringBuilder();
+        while( line != null ) {
+            
+            messageBuilder.append( line ).append("\n");
+            line = bf.readLine();
+        }
+        
+        message = messageBuilder.toString();
+        System.out.println(message);
         
         System.out.println("-------------------------------------------------------");
 
