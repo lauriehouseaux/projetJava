@@ -138,9 +138,14 @@ public class Git extends Observable{
     }
     
     // renvoie le git object associe a la cle de 40 caracteres
-//    public GitObject find (String cle){
-//        
-//    }
+    public GitObject find (String cle){
+        for (GitObject object : objects) {
+            if (object.getName().equals(cle)) {
+                return object;
+            }
+        }
+        return null;
+    }
     
 }
     
