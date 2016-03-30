@@ -45,7 +45,7 @@ public class Tree extends GitObject{
             }while (c != '\0');
             content.append(" ");
             
-            // recuperation de la cle des fichiers que l'arbre contient
+            // recuperation de la cle du fichier 
             for(int j = 0; j<20; j++){
                 content.append(String.format("%02x", inflated[i]));
                 i++;
