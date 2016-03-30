@@ -90,51 +90,49 @@ public class VisualisationObjetsGit extends Application {
         // fenetre principale de taille fixe 1280 x 720p
         Scene scene = new Scene(root, 1280, 720);
         
-        
-        
         // -----------------------------------------------------------
         // ---------------------- barre de menu ----------------------
 
-            // barre de menu
-            MenuBar menuBar = new MenuBar();
-        
-            Menu menuFile = new Menu("Fichier");
-            menuBar.getMenus().add(menuFile);
+        // barre de menu
+        MenuBar menuBar = new MenuBar();
 
-            // element "ouvrir" dans le menu "fichier"
-            MenuItem menuFileOpen = new MenuItem("ouvrir");
-            
-            menuFileOpen.setOnAction( (ActionEvent t) -> {
-               
-                boolean validGitRepo; 
-                do {
-                    try {
+        Menu menuFile = new Menu("Fichier");
+        menuBar.getMenus().add(menuFile);
+
+        // element "ouvrir" dans le menu "fichier"
+        MenuItem menuFileOpen = new MenuItem("ouvrir");
+
+        menuFileOpen.setOnAction( (ActionEvent t) -> {
+
+            boolean validGitRepo; 
+            do {
+                try {
 //                        File gitDir = openGitRepository(primaryStage);
-                        openGitRepository(primaryStage);
+                    openGitRepository(primaryStage);
 
-                        // si openGitRepository renvoie null on ne fait aucun traitement
-                        // ( la selection de dossier a ete annulee )
+                    // si openGitRepository renvoie null on ne fait aucun traitement
+                    // ( la selection de dossier a ete annulee )
 //                        if( gitDir != null ) {
 //                            objectsFilesList.addListGitObjects( gitDir );
 //                        }
 
-                        validGitRepo = true;
-                    }
-                    catch(NotGitDirectoryException | NotGitRepositoryException | DirectoryDoesNotExistException | IOException e) {
+                    validGitRepo = true;
+                }
+                catch(NotGitDirectoryException | NotGitRepositoryException | DirectoryDoesNotExistException | IOException e) {
 
-                        Alert alert = new Alert(AlertType.ERROR, e.getMessage());
-                        alert.showAndWait();
-                        validGitRepo = false;
+                    Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+                    alert.showAndWait();
+                    validGitRepo = false;
 
-                    }
-                }while( !validGitRepo );
-                
-            } );
+                }
+            }while( !validGitRepo );
 
-            menuFile.getItems().add(menuFileOpen);
-            
-            // ajout de la barre de menu dans la fenetre principale
-            root.setTop(menuBar);
+        } );
+
+        menuFile.getItems().add(menuFileOpen);
+
+        // ajout de la barre de menu dans la fenetre principale
+        root.setTop(menuBar);
             
         // ---------------------- barre de menu ----------------------
         // -----------------------------------------------------------
@@ -144,8 +142,8 @@ public class VisualisationObjetsGit extends Application {
         // -----------------------------------------
         // ----------------- views -----------------
             
-            root.setLeft(objectsFilesList);
-            root.setCenter(objectContent);
+        root.setLeft(objectsFilesList);
+        root.setCenter(objectContent);
         
         // ----------------- views -----------------
         // -----------------------------------------
