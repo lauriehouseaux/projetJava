@@ -13,6 +13,8 @@ public class Tag extends GitObject{
         
         super(_file);
         
+        name = _file.getName();
+        
         FileReader fr = new FileReader(_file);
         BufferedReader bf = new BufferedReader(fr);
         

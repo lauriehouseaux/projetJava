@@ -5,7 +5,7 @@ import java.io.File;
 
 public abstract class GitObject {
     private File gitObjectFile;
-    private String name;
+    protected String name;
     
     public File getFile(){
         return gitObjectFile;
