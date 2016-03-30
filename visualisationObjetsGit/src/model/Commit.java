@@ -35,14 +35,14 @@ public class Commit extends GitObject{
         
         String content = FileReading.stringValue( FileReading.ReadFile(_file) );
         
-        System.out.println("-------------------------------------------------------");
+//        System.out.println("-------------------------------------------------------");
         
         StringReader sr = new StringReader( content );
         BufferedReader bf = new BufferedReader( sr );
         
         String line = bf.readLine();
           
-//        tree = gitInstance.find( line.split(" ")[2] );
+        tree = (Tree)gitInstance.find( line.split(" ")[2] );
         
         line = bf.readLine();
         
@@ -53,7 +53,7 @@ public class Commit extends GitObject{
             switch( line.charAt(0)) {
              
                 case 'p':
-//                    parents.add( gitInstance.find( line.split(" ")[1] ) );
+                    parents.add( (Commit)gitInstance.find( line.split(" ")[1] ) );
                     break;
                     
                 case 'a':
@@ -110,9 +110,9 @@ public class Commit extends GitObject{
         }
         
         message = messageBuilder.toString();
-        System.out.println(message);
+//        System.out.println(message);
         
-        System.out.println("-------------------------------------------------------");
+//        System.out.println("-------------------------------------------------------");
 
     }   
 }

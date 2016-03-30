@@ -20,13 +20,14 @@ public class Tree extends GitObject{
 //        System.out.println("-------------------------------------------------------");
 
     }
-    
+    // lecture de l'arbre de façon lisible pour un humain
      public static String stringValue( Byte[] inflated ) {
         
         StringBuilder content = new StringBuilder();
         
         int i = 0;
         char c;
+        // affichage de l'entete
         do {
             c = (char)inflated[i].byteValue();
             content.append(c);
@@ -34,7 +35,9 @@ public class Tree extends GitObject{
         }while (c != '\0');
         content.append('\n');
         
+        // pour chaque entree on fait la meme chose
         while(i < inflated.length) {
+            // affichage du nom
             do {
                 c = (char)inflated[i].byteValue();
                 content.append(c);
@@ -42,6 +45,7 @@ public class Tree extends GitObject{
             }while (c != '\0');
             content.append(" ");
             
+            // recuperation de la cle du fichier 
             for(int j = 0; j<20; j++){
                 content.append(String.format("%02x", inflated[i]));
                 i++;

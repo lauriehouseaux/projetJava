@@ -21,7 +21,7 @@ public final class FileReading {
     private FileReading(){}; // interdit l'instanciation de cette classe
     
     public static Byte[] ReadFile(File f) throws FileNotFoundException, IOException{
-  				
+    // Decompression des objets + stockage des octets dans un tableau
 	FileInputStream fis = new FileInputStream(f);
         
         InflaterInputStream decompresser = new InflaterInputStream(fis);
@@ -43,7 +43,7 @@ public final class FileReading {
     }
     
     public static String stringValue( Byte[] inflated ) {
-        
+        // converti les octets du tableau en characteres
         StringBuilder content = new StringBuilder();
         
         int i = 0;

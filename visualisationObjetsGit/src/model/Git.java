@@ -28,12 +28,16 @@ public class Git extends Observable{
         
         Byte[] file = FileReading.ReadFile(_gitObject);
         StringBuilder mot = new StringBuilder();
-
+        
+        // on recupere les 10 premiers caracteres du fichier qui correspondent
+        // au type du fichier 
         for (int i = 0; i < 10 && i < file.length; i++) {
             mot.append((char)file[i].byteValue());
         }
 
-
+        // puis on compare les caracteres obtenu aux differents noms des objets
+        // git pour savoir le type d'objet qu'on a 
+        
         if(mot.toString().startsWith("blob")){
             return ObjectType.BLOB;
         }
@@ -46,18 +50,21 @@ public class Git extends Observable{
             return ObjectType.COMMIT;
         }
 
+
         else {
             return ObjectType.NONE;
         }
     }
     
+    
     public Git(){
         gitDirectory = null;
         objects = new ArrayList();
     }
+
     
     public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException, IOException {
-        
+       // on gere les erreurs pouvant etre rencontrees avec le dossiers git  
         if(!_gitDirectory.exists()) {
             throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'existe pas");
         }
@@ -124,9 +131,14 @@ public class Git extends Observable{
     }
     
     // renvoie le git object associe a la cle de 40 caracteres
-//    public GitObject find (String cle){
-//        
-//    }
+    public GitObject find (String cle){
+        for (GitObject object : objects) {
+            if (object.getName().equals(cle)) {
+                return object;
+            }
+        }
+        return null;
+    }
     
 }
     
