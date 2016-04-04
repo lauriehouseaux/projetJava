@@ -115,4 +115,25 @@ public class Commit extends GitObject{
 //        System.out.println("-------------------------------------------------------");
 
     }   
+
+    @Override
+    public String toString() {
+    
+        StringBuilder sb = new StringBuilder( "name : " + getName() );
+        sb.append("tree : ").append(tree.getName());
+        parents.stream().forEach((parent) -> {
+            sb.append("parent : ").append(parent.getName());
+        });
+        sb.append("authorName : ").append(authorName);
+        sb.append("authorMail : ").append(authorMail);
+        sb.append("dateWritten : ").append(dateWritten);
+        sb.append("committerName : ").append(committerName);
+        sb.append("committerMail : ").append(committerMail);
+        sb.append("dateCommitted : ").append(dateCommitted);
+        sb.append("message : ").append(message);
+        
+        return sb.toString();
+    
+    }
+
 }

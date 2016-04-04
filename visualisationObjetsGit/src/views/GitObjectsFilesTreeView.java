@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import model.Git;
@@ -109,6 +111,22 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
         model.addObserver(this);
         
         this.model = model;
+        
+        getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
+
+        @Override
+        public void changed(ObservableValue observable, Object oldValue,
+                Object newValue) {
+
+            TreeItem<String> selectedItem = (TreeItem<String>) newValue;
+            
+            if ( ! selectedItem.getParent().getValue().contentEquals("objets") ) {
+                System.out.println( model.find( selectedItem.getValue() ) );
+            }
+            
+        }
+
+      });
         
         rootTreeListeFichiers = new TreeItem("objets");
 
