@@ -14,6 +14,7 @@ import java.util.zip.InflaterInputStream;
 public class Git extends Observable{
     private File gitDirectory;  
     private ArrayList<GitObject> objects;
+    private GitObject selectedObject;
     
     // defini les types d'objets que l'on peut rencontrer dans .git/objects
     // cette enum correspond aux classes derivants de GitObject
@@ -60,6 +61,7 @@ public class Git extends Observable{
     public Git(){
         gitDirectory = null;
         objects = new ArrayList();
+        selectedObject = null;
     }
 
     
@@ -86,6 +88,7 @@ public class Git extends Observable{
         
         gitDirectory = _gitDirectory;
         objects.clear();
+        selectedObject = null;
         
         for (File f: objectsDirectory.listFiles()){
 
@@ -120,7 +123,7 @@ public class Git extends Observable{
         }
         
         setChanged();
-        notifyObservers();
+        notifyObservers( new String("setGitDirectory") );
         
     }
 
@@ -138,6 +141,21 @@ public class Git extends Observable{
             }
         }
         return null;
+    }
+    
+    public void setSelectedObject( String cle ){
+        
+        this.selectedObject = this.find( cle ) ;
+        
+        setChanged();
+        notifyObservers();
+        
+    }
+    
+    public GitObject getSelectObject() {
+        
+        return selectedObject;
+        
     }
     
 }

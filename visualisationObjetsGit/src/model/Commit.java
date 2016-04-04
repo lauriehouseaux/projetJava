@@ -65,7 +65,6 @@ public class Commit extends GitObject{
 
                     case 'p':
                         parents.add( (Commit)gitInstance.find( line.split(" ")[1] ) );
-                        System.out.println( line.split(" ")[1] );
                         break;
 
                     case 'a':
