@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Tag extends GitObject{
@@ -24,6 +25,11 @@ public class Tag extends GitObject{
 //        System.out.println("-------------------------------------------------------");
         
         
+    }
+
+    @Override
+    public ArrayList<ObjectProperty> getProperties() throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

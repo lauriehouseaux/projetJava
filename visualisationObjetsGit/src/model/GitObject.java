@@ -1,7 +1,8 @@
 package model;
 
 import java.io.File;
-
+import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class GitObject {
     private File gitObjectFile;
@@ -25,5 +26,7 @@ public abstract class GitObject {
         gitInstance = _gitInstance;
         
     }
+    
+    public abstract ArrayList<ObjectProperty> getProperties() throws IOException;
     
 }

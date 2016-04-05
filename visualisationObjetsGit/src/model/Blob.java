@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Blob extends GitObject{
@@ -17,6 +18,11 @@ public class Blob extends GitObject{
 //        System.out.println(FileReading.stringValue( FileReading.ReadFile(_file) ));
 //        System.out.println("-------------------------------------------------------");
         
+    }
+
+    @Override
+    public ArrayList<ObjectProperty> getProperties() throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
