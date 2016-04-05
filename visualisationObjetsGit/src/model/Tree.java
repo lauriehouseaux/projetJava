@@ -58,7 +58,20 @@ public class Tree extends GitObject{
     }
 
     @Override
+    protected void fill() throws IOException {
+        
+        if ( !this.filled ) {
+            
+            
+            
+            this.filled = true;
+        }
+    }
+
+    @Override
     public ArrayList<GitObjectProperty> getProperties() throws IOException {
+        
+        this.fill();
         
         ArrayList<GitObjectProperty> properties = new ArrayList<>();
         properties.add(new GitObjectProperty("", GitObjectPropertyType.STRING, this.toString()));

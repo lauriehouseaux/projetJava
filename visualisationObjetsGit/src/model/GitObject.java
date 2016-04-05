@@ -8,6 +8,9 @@ public abstract class GitObject {
     private File gitObjectFile;
     protected String name;
     protected Git gitInstance;
+    protected boolean filled; 
+            // permet de savoir si les proprietes de l'objet ont ete recuperees
+            // c.a.d si fill() a ete appelee, methode qui parse le fichier
     
     public File getFile(){
         return gitObjectFile;
@@ -25,7 +28,11 @@ public abstract class GitObject {
         
         gitInstance = _gitInstance;
         
+        this.filled = false;
+        
     }
+    
+    protected abstract void fill() throws IOException;
     
     public abstract ArrayList<GitObjectProperty> getProperties() throws IOException;
     

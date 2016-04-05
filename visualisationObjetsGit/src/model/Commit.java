@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 public class Commit extends GitObject{
     
-    private boolean filled;
-    
     private Tree tree;
     private ArrayList< Commit > parents;
     
@@ -30,12 +28,11 @@ public class Commit extends GitObject{
     public Commit(File _file, Git _gitInstance) {
         
         super(_file, _gitInstance);
-        
-        this.filled = false;
 
     }
     
-    private void fill() throws IOException { 
+    @Override
+    protected void fill() throws IOException { 
         
         if ( !this.filled ) {
         
@@ -185,8 +182,9 @@ public class Commit extends GitObject{
     @Override
     public ArrayList<GitObjectProperty> getProperties() throws IOException {
         
-        ArrayList<GitObjectProperty> properties = new ArrayList<>();
         this.fill();
+        
+        ArrayList<GitObjectProperty> properties = new ArrayList<>();
        
         properties.add( new GitObjectProperty( "name" , GitObjectPropertyType.STRING , getName() ) );
         
