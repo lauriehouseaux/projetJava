@@ -3,14 +3,10 @@ package model;
 import java.io.BufferedReader;
 import java.io.File;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 
@@ -193,19 +189,30 @@ public class Commit extends GitObject{
         this.fill();
        
         properties.add( new GitObjectProperty( "name" , GitObjectPropertyType.STRING , getName() ) );
+        
+        properties.add( new GitObjectProperty( "" , GitObjectPropertyType.BLOC_SEPARATOR , "" ) );
+        
         properties.add( new GitObjectProperty( "tree" , GitObjectPropertyType.OBJECT_REF , tree ) );
+        
+        properties.add( new GitObjectProperty( "" , GitObjectPropertyType.BLOC_SEPARATOR , "" ) );
             
             parents.stream().forEach((parent) -> {
                 properties.add( new GitObjectProperty( "parent" , GitObjectPropertyType.OBJECT_REF , parent ) );
             });
+            
+        properties.add( new GitObjectProperty( "" , GitObjectPropertyType.BLOC_SEPARATOR , "" ) );
         
         properties.add( new GitObjectProperty( "authorName" , GitObjectPropertyType.STRING , authorName ) );
         properties.add( new GitObjectProperty( "authorMail" , GitObjectPropertyType.STRING , authorMail ) );
         properties.add( new GitObjectProperty( "dateWritten" , GitObjectPropertyType.STRING , dateWritten ) );
         
+        properties.add( new GitObjectProperty( "" , GitObjectPropertyType.BLOC_SEPARATOR , "" ) );
+        
         properties.add( new GitObjectProperty( "committerName" , GitObjectPropertyType.STRING , committerName ) );
         properties.add( new GitObjectProperty( "committerMail" , GitObjectPropertyType.STRING , committerMail ) );
         properties.add( new GitObjectProperty( "dateCommitted" , GitObjectPropertyType.STRING , dateCommitted ) );
+        
+        properties.add( new GitObjectProperty( "" , GitObjectPropertyType.BLOC_SEPARATOR , "" ) );
         
         properties.add( new GitObjectProperty( "message" , GitObjectPropertyType.STRING , message ) );
         

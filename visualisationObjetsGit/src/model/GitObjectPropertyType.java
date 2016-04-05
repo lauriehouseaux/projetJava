@@ -5,5 +5,5 @@ package model;
  * @author Jarretier Adrien "jarretier.adrien@gmail.com"
  */
 public enum GitObjectPropertyType {
-    STRING, OBJECT_REF
+    STRING, OBJECT_REF, BLOC_SEPARATOR
 }
