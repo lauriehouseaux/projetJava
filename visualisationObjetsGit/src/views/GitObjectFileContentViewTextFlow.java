@@ -3,9 +3,10 @@ package views;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TreeItem;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import model.Git;
@@ -15,14 +16,17 @@ import model.GitObjectProperty;
 public class GitObjectFileContentViewTextFlow extends TextFlow implements Observer{
     
     private Git model;
+    // on relie cette vue a la liste des objets pour changer la selection
+    private GitObjectsFilesTreeView treeView;
     
-    public GitObjectFileContentViewTextFlow( Git model ){
+    public GitObjectFileContentViewTextFlow( Git model, GitObjectsFilesTreeView treeView ){
         
         super();
     
         model.addObserver(this);
         
         this.model = model;
+        this.treeView = treeView;
     }
 
     @Override
@@ -49,7 +53,13 @@ public class GitObjectFileContentViewTextFlow extends TextFlow implements Observ
                                 getChildren().add( new Text( "null" ) );
                             }
                             else {
-                                getChildren().add( new Hyperlink( ((GitObject)property.value).getName() ) );
+                                Hyperlink link = new Hyperlink( ((GitObject)property.value).getName() ); 
+                                link.setOnAction((ActionEvent e) -> {
+                                    
+                                    treeView.selectByGitObject( (GitObject)property.value );
+                                    
+                                });
+                                getChildren().add( link );
                             }
                             break;
                     }

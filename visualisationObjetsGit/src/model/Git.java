@@ -148,7 +148,7 @@ public class Git extends Observable{
         this.selectedObject = this.find( cle ) ;
         
         setChanged();
-        notifyObservers();
+        notifyObservers( "setSelectedObject" );
         
     }
     

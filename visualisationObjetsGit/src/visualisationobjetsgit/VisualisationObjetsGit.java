@@ -38,7 +38,7 @@ public class VisualisationObjetsGit extends Application {
         gitModel = new Git();
         
         objectsFilesList = new GitObjectsFilesTreeView( gitModel );
-        objectContent = new GitObjectFileContentViewTextFlow( gitModel );
+        objectContent = new GitObjectFileContentViewTextFlow( gitModel, objectsFilesList );
         
     }
     

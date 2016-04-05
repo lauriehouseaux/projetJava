@@ -104,6 +104,30 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
         
     }
     
+    public void selectByGitObject( GitObject _selectedObject ) {
+        
+//        System.out.println( "selected : " + _selectedObject.getClass().getSimpleName() );
+        
+        for (TreeItem<String> treeItem : objectsType) {
+            
+            if( treeItem.getValue().equals( _selectedObject.getClass().getSimpleName()+"s" ) ) {
+                
+                treeItem.setExpanded(true);
+                
+                for (TreeItem<String> treeItem1 : treeItem.getChildren()) {
+                    
+                    if( treeItem1.getValue().equals( _selectedObject.getName() ) ) {
+                        
+                        getSelectionModel().select( treeItem1 );
+                        
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
     public GitObjectsFilesTreeView( Git model ) {
     
         super();
