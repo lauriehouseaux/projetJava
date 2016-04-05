@@ -27,6 +27,6 @@ public abstract class GitObject {
         
     }
     
-    public abstract ArrayList<ObjectProperty> getProperties() throws IOException;
+    public abstract ArrayList<GitObjectProperty> getProperties() throws IOException;
     
 }

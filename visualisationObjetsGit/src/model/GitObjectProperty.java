@@ -7,13 +7,13 @@ package model;
  * 
  * @author Jarretier Adrien "jarretier.adrien@gmail.com"
  */
-public class ObjectProperty {
+public class GitObjectProperty {
     
     public String name;
     public GitObjectPropertyType type;
     public Object value;
     
-    public ObjectProperty(String name, GitObjectPropertyType type, Object value) {
+    public GitObjectProperty(String name, GitObjectPropertyType type, Object value) {
         this.name = name;
         this.type = type;
         this.value = value;

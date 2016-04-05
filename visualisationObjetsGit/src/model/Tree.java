@@ -58,8 +58,13 @@ public class Tree extends GitObject{
     }
 
     @Override
-    public ArrayList<ObjectProperty> getProperties() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<GitObjectProperty> getProperties() throws IOException {
+        
+        ArrayList<GitObjectProperty> properties = new ArrayList<>();
+        properties.add(new GitObjectProperty("", GitObjectPropertyType.STRING, this.toString()));
+        
+        return properties;
+        
     }
     
 }

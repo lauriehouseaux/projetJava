@@ -187,27 +187,27 @@ public class Commit extends GitObject{
     }
 
     @Override
-    public ArrayList<ObjectProperty> getProperties() throws IOException {
+    public ArrayList<GitObjectProperty> getProperties() throws IOException {
         
-        ArrayList<ObjectProperty> properties = new ArrayList<>();
+        ArrayList<GitObjectProperty> properties = new ArrayList<>();
         this.fill();
        
-        properties.add( new ObjectProperty( "name" , GitObjectPropertyType.STRING , getName() ) );
-        properties.add( new ObjectProperty( "tree" , GitObjectPropertyType.OBJECT_REF , tree ) );
+        properties.add( new GitObjectProperty( "name" , GitObjectPropertyType.STRING , getName() ) );
+        properties.add( new GitObjectProperty( "tree" , GitObjectPropertyType.OBJECT_REF , tree ) );
             
             parents.stream().forEach((parent) -> {
-                properties.add( new ObjectProperty( "parent" , GitObjectPropertyType.OBJECT_REF , parent ) );
+                properties.add( new GitObjectProperty( "parent" , GitObjectPropertyType.OBJECT_REF , parent ) );
             });
         
-        properties.add( new ObjectProperty( "authorName" , GitObjectPropertyType.STRING , authorName ) );
-        properties.add( new ObjectProperty( "authorMail" , GitObjectPropertyType.STRING , authorMail ) );
-        properties.add( new ObjectProperty( "dateWritten" , GitObjectPropertyType.STRING , dateWritten ) );
+        properties.add( new GitObjectProperty( "authorName" , GitObjectPropertyType.STRING , authorName ) );
+        properties.add( new GitObjectProperty( "authorMail" , GitObjectPropertyType.STRING , authorMail ) );
+        properties.add( new GitObjectProperty( "dateWritten" , GitObjectPropertyType.STRING , dateWritten ) );
         
-        properties.add( new ObjectProperty( "committerName" , GitObjectPropertyType.STRING , committerName ) );
-        properties.add( new ObjectProperty( "committerMail" , GitObjectPropertyType.STRING , committerMail ) );
-        properties.add( new ObjectProperty( "dateCommitted" , GitObjectPropertyType.STRING , dateCommitted ) );
+        properties.add( new GitObjectProperty( "committerName" , GitObjectPropertyType.STRING , committerName ) );
+        properties.add( new GitObjectProperty( "committerMail" , GitObjectPropertyType.STRING , committerMail ) );
+        properties.add( new GitObjectProperty( "dateCommitted" , GitObjectPropertyType.STRING , dateCommitted ) );
         
-        properties.add( new ObjectProperty( "message" , GitObjectPropertyType.STRING , message ) );
+        properties.add( new GitObjectProperty( "message" , GitObjectPropertyType.STRING , message ) );
         
         return properties;
         
