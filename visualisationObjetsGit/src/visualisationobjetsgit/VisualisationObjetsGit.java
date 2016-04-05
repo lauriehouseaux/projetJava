@@ -18,6 +18,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import model.Git;
 import views.GitObjectFileContentView;
+import views.GitObjectFileContentViewTextFlow;
 import views.GitObjectsFilesTreeView;
 
 /**
@@ -29,7 +30,7 @@ public class VisualisationObjetsGit extends Application {
     private Git gitModel;
     
     private GitObjectsFilesTreeView objectsFilesList;
-    private GitObjectFileContentView objectContent;
+    private GitObjectFileContentViewTextFlow objectContent;
 
     @Override
     public void init() {
@@ -37,7 +38,7 @@ public class VisualisationObjetsGit extends Application {
         gitModel = new Git();
         
         objectsFilesList = new GitObjectsFilesTreeView( gitModel );
-        objectContent = new GitObjectFileContentView( gitModel );
+        objectContent = new GitObjectFileContentViewTextFlow( gitModel );
         
     }
     
