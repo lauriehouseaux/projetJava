@@ -34,6 +34,16 @@ public abstract class GitObject {
     
     protected abstract void fill() throws IOException;
     
+    /**
+     *
+     * cette fonction permet de recuperer une liste des differents champs
+     * presents dans ce GitObject
+     * 
+     * @see GitObjectProperty
+     * 
+     * @return la liste des proprietes de ce GitObject
+     * @throws IOException
+     */
     public abstract ArrayList<GitObjectProperty> getProperties() throws IOException;
     
 }

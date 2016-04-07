@@ -42,15 +42,30 @@ public class GitObjectFileContentViewTextFlow extends TextFlow implements Observ
         }
         else {
             try {
+                
+                getChildren().add( new Text( "Name : " + so.getName() ) );
+                getChildren().add( new Text( System.getProperty("line.separator") ) );
+                getChildren().add( new Text( System.getProperty("line.separator") ) );
+                
                 for (GitObjectProperty property : so.getProperties()) {
+                    String pName = new String();
+                    if( property.name.length() > 0 ) {
+                        pName = property.name.substring(0, 1).toUpperCase() + property.name.substring(1);
+                    }
                     switch(property.type) {
                         case STRING:
-                            getChildren().add( new Text( property.name + " : " ) );
+                            getChildren().add( new Text( pName + " : " ) );
+                            getChildren().add( new Text( (String)property.value ) );
+                            break;
+                            
+                        case STRING_BLOC:
+                            getChildren().add( new Text( pName + " : " ) );
+                            getChildren().add( new Text( System.getProperty("line.separator") ) );
                             getChildren().add( new Text( (String)property.value ) );
                             break;
                             
                         case OBJECT_REF:
-                            getChildren().add( new Text( property.name + " : " ) );
+                            getChildren().add( new Text( pName + " : " ) );
                             if( property.value == null ) {
                                 getChildren().add( new Text( "null" ) );
                             }
@@ -63,10 +78,6 @@ public class GitObjectFileContentViewTextFlow extends TextFlow implements Observ
                                 });
                                 getChildren().add( link );
                             }
-                            break;
-                            
-                        case BLOC_SEPARATOR:
-                            getChildren().add( new Text( System.getProperty("line.separator") ) );
                             break;
                     }
                     getChildren().add( new Text( System.getProperty("line.separator") ) );

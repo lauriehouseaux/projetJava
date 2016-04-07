@@ -185,10 +185,6 @@ public class Commit extends GitObject{
         this.fill();
         
         ArrayList<GitObjectProperty> properties = new ArrayList<>();
-       
-        properties.add( new GitObjectProperty( "name" , GitObjectPropertyType.STRING , getName() ) );
-        
-        properties.add( new GitObjectProperty( "" , GitObjectPropertyType.BLOC_SEPARATOR , "" ) );
         
         properties.add( new GitObjectProperty( "tree" , GitObjectPropertyType.OBJECT_REF , tree ) );
         
