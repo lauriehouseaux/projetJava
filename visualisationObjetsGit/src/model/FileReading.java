@@ -50,4 +50,40 @@ public final class FileReading {
         
     }
     
+    public static String toHex( Byte[] inflated ) {
+        
+        StringBuilder content = new StringBuilder();
+        
+        int i = 0;
+        
+        while(i < inflated.length) {
+            content.append(String.format("%02x", inflated[i]));
+            i++;
+        }
+        
+        return content.toString();
+    }
+    
+    public static Byte[] removeHeading( Byte[] inflated ) {
+        
+        int i = 0;
+        char c;
+        
+        do {
+            c = (char)inflated[i].byteValue();
+            i++;
+        }while (c != '\0');
+        
+                
+        ArrayList<Byte> LectureFichier = new ArrayList();
+        
+        while(i < inflated.length) {
+            LectureFichier.add( inflated[i] );
+            i++;
+        }
+         
+        return LectureFichier.toArray(new Byte[0]); 
+        
+    }
+    
 }

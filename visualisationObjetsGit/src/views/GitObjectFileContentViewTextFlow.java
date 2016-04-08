@@ -79,6 +79,20 @@ public class GitObjectFileContentViewTextFlow extends TextFlow implements Observ
                                 getChildren().add( link );
                             }
                             break;
+                            
+                        case IMAGE:
+                                // insert imageViewer here
+                            break;
+                            
+                        case UNKNOWN:
+                                getChildren().add( new Text("type de fichier inconnu") );
+                                getChildren().add( new Text( System.getProperty("line.separator") ) );
+                                getChildren().add( new Text("debut du fichier en hexadecimal :") );
+                                getChildren().add( new Text( System.getProperty("line.separator") ) );
+                                getChildren().add( new Text( System.getProperty("line.separator") ) );
+                                String sValue = (String)property.value;
+                                getChildren().add( new Text( sValue.substring(0, sValue.length()>2047 ? 2047 : sValue.length()-1) ) );
+                            break;
                     }
                     getChildren().add( new Text( System.getProperty("line.separator") ) );
                 }
