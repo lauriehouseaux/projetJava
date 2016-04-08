@@ -9,12 +9,16 @@ import java.util.ArrayList;
 
 public class Tree extends GitObject{
     
+    private ArrayList<String> filesModes;
+    private ArrayList<String> filesNames;
     private ArrayList<GitObject> childs;
     
     public Tree(File _file, Git _gitInstance) throws IOException {
         
         super(_file, _gitInstance);
         
+        filesModes = new ArrayList<>();
+        filesNames = new ArrayList<>();
         childs = new ArrayList<>();
 
     }
@@ -70,6 +74,8 @@ public class Tree extends GitObject{
             
             while( line != null )
             {
+                filesModes.add( line.split(" ")[0] );
+                filesNames.add( line.split(" ")[1] );
                 childs.add( gitInstance.find( line.split(" ")[2] ) );
                 
                 line = bf.readLine();
@@ -86,8 +92,12 @@ public class Tree extends GitObject{
         
         ArrayList<GitObjectProperty> properties = new ArrayList<>();
         
-        for (GitObject child : childs) {
-            properties.add(new GitObjectProperty("child", GitObjectPropertyType.OBJECT_REF, child));
+        for (int i = 0; i < childs.size(); i++) {
+            
+            properties.add( new GitObjectProperty("child", GitObjectPropertyType.OBJECT_REF, childs.get(i)) );
+            properties.add( new GitObjectProperty("fileMode", GitObjectPropertyType.STRING, filesModes.get(i)) );
+            properties.add( new GitObjectProperty("fileName", GitObjectPropertyType.STRING, filesNames.get(i)) );
+            properties.add( new GitObjectProperty("", GitObjectPropertyType.BLOC_SEPARATOR, "") );
         }
         
         
