@@ -1,7 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 
@@ -13,11 +15,7 @@ public class Tree extends GitObject{
         
         super(_file, _gitInstance);
         
-        
-//        System.out.println("-------------------------------------------------------");
-//        System.out.println("nom : " + this.getName());
-//        System.out.println(stringValue( FileReading.ReadFile(_file) ));
-//        System.out.println("-------------------------------------------------------");
+        childs = new ArrayList<>();
 
     }
     // lecture de l'arbre de façon lisible pour un humain
@@ -62,7 +60,20 @@ public class Tree extends GitObject{
         
         if ( !this.filled ) {
             
+            String content = Tree.stringValue( FileReading.ReadFile(getFile()) );
             
+            StringReader sr = new StringReader( content );
+            BufferedReader bf = new BufferedReader( sr );
+
+            String line = bf.readLine();
+            line = bf.readLine();   //  on passe l'en-tete
+            
+            while( line != null )
+            {
+                childs.add( gitInstance.find( line.split(" ")[2] ) );
+                
+                line = bf.readLine();
+            }
             
             this.filled = true;
         }
@@ -74,7 +85,11 @@ public class Tree extends GitObject{
         this.fill();
         
         ArrayList<GitObjectProperty> properties = new ArrayList<>();
-        properties.add(new GitObjectProperty("", GitObjectPropertyType.STRING, this.toString()));
+        
+        for (GitObject child : childs) {
+            properties.add(new GitObjectProperty("child", GitObjectPropertyType.OBJECT_REF, child));
+        }
+        
         
         return properties;
         

@@ -144,7 +144,7 @@ public class GitObjectsFilesTreeView extends TreeView<String> implements Observe
 
             TreeItem<String> selectedItem = (TreeItem<String>) newValue;
             
-            if ( ! selectedItem.getParent().getValue().contentEquals("objets") ) {
+            if ( selectedItem != null && ! selectedItem.getParent().getValue().contentEquals("objets") ) {
                 
 //                System.out.println( model.find( selectedItem.getValue() ) );
                 model.setSelectedObject( selectedItem.getValue() );

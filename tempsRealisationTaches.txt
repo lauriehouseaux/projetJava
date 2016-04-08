@@ -67,3 +67,4 @@ semaine 04/04 10/04 (14)
 
 4 h => events
 4 h => modele / vue
+4 h => modele
