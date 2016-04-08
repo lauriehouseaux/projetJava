@@ -68,11 +68,11 @@ public class Git extends Observable{
     public void setGitDirectory(File _gitDirectory) throws DirectoryDoesNotExistException, NotGitDirectoryException, IOException {
        // on gere les erreurs pouvant etre rencontrees avec le dossiers git  
         if(!_gitDirectory.exists()) {
-            throw new DirectoryDoesNotExistException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'existe pas");
+            throw new DirectoryDoesNotExistException("Le dossier <" + _gitDirectory.getAbsolutePath() + "> n'existe pas");
         }
         
         if( !_gitDirectory.getName().equals(".git") ) {
-            throw new NotGitDirectoryException("Le dossier <" + gitDirectory.getAbsolutePath() + "> n'est pas un dossier <.git>");
+            throw new NotGitDirectoryException("Le dossier <" + _gitDirectory.getAbsolutePath() + "> n'est pas un dossier <.git>");
         }
         
         File objectsDirectory= new File(_gitDirectory,"objects");

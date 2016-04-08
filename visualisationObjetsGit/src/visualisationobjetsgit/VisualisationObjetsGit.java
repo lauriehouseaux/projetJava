@@ -34,9 +34,10 @@ public class VisualisationObjetsGit extends Application {
 
     @Override
     public void init() {
-        
+        // Modele de donnees 
         gitModel = new Git();
         
+        // deux vues 
         objectsFilesList = new GitObjectsFilesTreeView( gitModel );
         objectContent = new GitObjectFileContentViewTextFlow( gitModel, objectsFilesList );
         
@@ -53,7 +54,7 @@ public class VisualisationObjetsGit extends Application {
      * 
      * @throws exceptions.NotGitRepositoryException 
      */
-    private void openGitRepository(Stage stage) throws NotGitRepositoryException, DirectoryDoesNotExistException, NotGitDirectoryException, IOException {
+    private void openGitRepository(Stage stage) throws NotGitRepositoryException, NotGitDirectoryException, IOException {
         
         DirectoryChooser dc = new DirectoryChooser();
         
@@ -68,11 +69,12 @@ public class VisualisationObjetsGit extends Application {
         else { 
             File gitDirectory = new File(gitRepository, ".git");
             
-            if(!gitDirectory.exists()) {
-                throw new NotGitRepositoryException("Ce n'est pas un depot git valide !");
+            try {
+                gitModel.setGitDirectory(gitDirectory);
             }
-            
-            gitModel.setGitDirectory(gitDirectory);
+            catch( DirectoryDoesNotExistException ex ) {
+                throw new NotGitRepositoryException("Ce n'est pas un depot git valide !" + "\n" + ex.getMessage());
+            }
 
             // leve une exception si le dossier ".git" n'existe pas
             // autrement dit : si le dossier selectionne n'est pas un depot git
@@ -119,7 +121,7 @@ public class VisualisationObjetsGit extends Application {
 
                     validGitRepo = true;
                 }
-                catch(NotGitDirectoryException | NotGitRepositoryException | DirectoryDoesNotExistException | IOException e) {
+                catch(NotGitRepositoryException | NotGitDirectoryException | IOException e) {
 
                     Alert alert = new Alert(AlertType.ERROR, e.getMessage());
                     alert.showAndWait();
