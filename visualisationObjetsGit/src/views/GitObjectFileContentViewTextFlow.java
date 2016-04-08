@@ -1,13 +1,18 @@
 package views;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javax.imageio.ImageIO;
 import model.Git;
 import model.GitObject;
 import model.GitObjectProperty;
@@ -81,17 +86,30 @@ public class GitObjectFileContentViewTextFlow extends TextFlow implements Observ
                             break;
                             
                         case IMAGE:
-                                // insert imageViewer here
+                            
+                            Byte[] value = (Byte[])property.value;
+                            
+                            byte[] pixels = new byte[ value.length ];
+                            
+                            for (int i = 0; i < value.length; i++) {
+                                
+                                pixels[i] = value[i];
+                            }
+                            
+                            ByteArrayInputStream is = new ByteArrayInputStream( pixels );
+                            Image image = new Image(is);
+                            
+                            getChildren().add( new ImageView(image) );
                             break;
                             
                         case UNKNOWN:
-                                getChildren().add( new Text("type de fichier inconnu") );
-                                getChildren().add( new Text( System.getProperty("line.separator") ) );
-                                getChildren().add( new Text("debut du fichier en hexadecimal :") );
-                                getChildren().add( new Text( System.getProperty("line.separator") ) );
-                                getChildren().add( new Text( System.getProperty("line.separator") ) );
-                                String sValue = (String)property.value;
-                                getChildren().add( new Text( sValue.substring(0, sValue.length()>2047 ? 2047 : sValue.length()-1) ) );
+                            getChildren().add( new Text("type de fichier inconnu") );
+                            getChildren().add( new Text( System.getProperty("line.separator") ) );
+                            getChildren().add( new Text("debut du fichier en hexadecimal :") );
+                            getChildren().add( new Text( System.getProperty("line.separator") ) );
+                            getChildren().add( new Text( System.getProperty("line.separator") ) );
+                            String sValue = (String)property.value;
+                            getChildren().add( new Text( sValue.substring(0, sValue.length()>2047 ? 2047 : sValue.length()-1) ) );
                             break;
                     }
                     getChildren().add( new Text( System.getProperty("line.separator") ) );
