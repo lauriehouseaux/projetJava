@@ -16,6 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import model.Git;
 import views.GitObjectFileContentView;
 import views.GitObjectFileContentViewTextFlow;
@@ -101,7 +102,7 @@ public class VisualisationObjetsGit extends Application {
         menuBar.getMenus().add(menuFile);
 
         // element "ouvrir" dans le menu "fichier"
-        MenuItem menuFileOpen = new MenuItem("ouvrir");
+        MenuItem menuFileOpen = new MenuItem("Ouvrir");
 
         menuFileOpen.setOnAction( (ActionEvent t) -> {
 
@@ -131,6 +132,26 @@ public class VisualisationObjetsGit extends Application {
         } );
 
         menuFile.getItems().add(menuFileOpen);
+   
+         //bouton d'aide
+      ;
+        Menu menuAide = new Menu("Aide");
+        menuBar.getMenus().add(menuAide);
+        
+        //element de Aide;
+           
+        MenuItem menuFileOpen2 = new MenuItem("A propos");
+        
+        menuFileOpen2.setOnAction( (ActionEvent t) -> {
+            JOptionPane aide1 = new JOptionPane();
+            aide1.showMessageDialog(null, "insérer texte de l'aide", "Aide", JOptionPane.INFORMATION_MESSAGE);
+            
+
+        } );
+        
+         menuAide.getItems().add(menuFileOpen2);
+        
+         
 
         // ajout de la barre de menu dans la fenetre principale
         root.setTop(menuBar);
