@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 
 public class Tag extends GitObject{
+   
+    private GitObject objetReference;
     
     public Tag(File _file, Git _gitInstance) throws IOException {
         
@@ -32,8 +34,7 @@ public class Tag extends GitObject{
         
         if ( !this.filled ) {
             
-            
-            
+           
             this.filled = true;
         }
     }
@@ -44,8 +45,7 @@ public class Tag extends GitObject{
         this.fill();
         
         ArrayList<GitObjectProperty> properties = new ArrayList<>();
-        properties.add(new GitObjectProperty("", GitObjectPropertyType.STRING, this.toString()));
-        
+      //  properties.add( new GitObjectProperty( "Test" , GitObjectPropertyType.OBJECT_REF , tag ) );
         return properties;
     }
     
